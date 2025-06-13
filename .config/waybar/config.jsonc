@@ -1,0 +1,238 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 48,
+  "spacing": 8,
+  "margin-top": 8,
+  "margin-left": 12,
+  "margin-right": 12,
+  
+  "modules-left": [
+    "custom/launcher",
+    "hyprland/workspaces",
+    "wlr/taskbar",
+    "custom/notification"
+  ],
+  
+  "modules-center": [
+    "clock"
+  ],
+  
+  "modules-right": [
+    "custom/hypridle",
+    "custom/updates",
+    "network",
+    "cpu",
+    "disk",
+    "bluetooth",
+    "pulseaudio",
+    "battery",
+    "backlight",
+    "custom/power"
+  ],
+
+  "custom/launcher": {
+    "format": "",
+    "on-click": "sleep 0.2;rofi -show drun -replace",
+    "tooltip-format": "Open the application launcher"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "active": "",
+      "urgent": "⚠"
+    },
+    "on-click": "activate",
+    "sort-by-number": true,
+    "active-only": false,
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+    }
+  },
+
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 16,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": ["Alacritty", "kitty"],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "rewrite": {
+      "Firefox Web Browser": "Firefox",
+      "Foot Server": "Terminal"
+    }
+  },
+
+  "clock": {
+    "format": "{:%d/%m/%Y  |  %H:%M}",
+    "locale": "pt_BR.UTF-8",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ddd6fe'><b>{}</b></span>",
+        "days": "<span color='#f0e8ff'>{}</span>",
+        "weeks": "<span color='#c4b5fd'><b>S{}</b></span>",
+        "weekdays": "<span color='#a78bfa'><b>{}</b></span>",
+        "today": "<span color='#f2c5e0'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+
+  "network": {
+    "format-wifi": "󰤨 {signalStrength}%",
+    "format-ethernet": "󰈀 Conectado",
+    "format-disconnected": "󰤭 Desconectado",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%): {ipaddr}/{cidr}",
+    "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
+    "tooltip-format-disconnected": "Desconectado",
+    "on-click": "kitty nmtui"
+  },
+
+  "cpu": {
+    "format": "󰍛 {usage}%",
+    "tooltip": false,
+    "on-click": "kitty btop"
+  },
+
+  "bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱 {num_connections}",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "blueman-manager"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon}󰂰 {volume}%",
+    "format-bluetooth-muted": "󰝟󰂰",
+    "format-muted": "󰝟",
+    "format-source": "󰍬 {volume}%",
+    "format-source-muted": "󰍭",
+    "format-icons": {
+      "headphone": "󰋋",
+      "hands-free": "󱡏",
+      "headset": "󰋎",
+      "phone": "󰏲",
+      "portable": "󰦧",
+      "car": "󰄋",
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "on-click": "pavucontrol",
+    "on-scroll-up": "pamixer -i 5",
+    "on-scroll-down": "pamixer -d 5"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂄 {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": ["",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""],
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  "custom/power": {
+    "format": "󰐥",
+    "on-click": "~/.config/waybar/scripts/wlogout.sh",
+    "on-click-right": "hyprlock",
+    "tooltip-format": "Left: Power menu\nRight: Lock screen"
+  },
+
+  "disk": {
+    "interval": 30,
+    "format": " {percentage_used}%",
+    "path": "/",
+    "on-click": "~/.config/waybar/scripts/system-monitor.sh"
+  },
+
+  "custom/hypridle": {
+    "format": "󰷛",
+    "return-type": "json",
+    "escape": true,
+    "exec-on-event": true,
+    "interval": 60,
+    "exec": "~/.config/waybar/scripts/hypridle.sh status",
+    "on-click": "~/.config/waybar/scripts/hypridle.sh toggle"
+  },
+
+  "custom/updates":{
+    "exec": "~/.config/waybar/scripts/check-updates.sh",
+    "interval": 60,
+    "return-type": "json",
+    "tooltip": true,
+    "on-click": "kitty -e yay -Syu"
+  },
+
+  "custom/notification": {
+    "tooltip-format": "Left: Notifications\nRight: Do not disturb",
+    "format": "{icon}",
+    "format-icons": {
+      "notification":
+        "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
+      "none": "",
+      "dnd-notification":
+        "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
+      "dnd-none": "",
+      "inhibited-notification":
+        "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification":
+        "<span rise='8pt'><span foreground='red'><sup></sup></span></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  }
+}

@@ -1,0 +1,15 @@
+font_family CaskaydiaCove Nerd Font Mono
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+
+cursor_trail 1
+cursor #cccccc
+cursor_shape_unfocused hollow
+cursor_shape beam
+cursor_beam_thickness 8.0
+cursor none
+cursor_text_color #000000
+cursor_color #FFFFFF
+
+font_size 14
