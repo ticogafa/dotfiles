@@ -1,2 +1,2 @@
 #!/bin/bash
-kitty -e bash -c 'clear; exec bash'
+kitty -e fish -c 'clear; exec fish'
