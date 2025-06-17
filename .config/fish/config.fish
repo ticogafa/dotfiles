@@ -14,5 +14,8 @@ alias ls "eza --color=always --long --git --no-filesize --icons=always --no-time
 alias grep "grep --color=auto"
 alias inv "nvim (fzf -m --preview=\"bat --color=always {}\")"
 alias cls "clear; and fastfetch"
+alias cd z
+alias u "yay -Syu"
+alias i "yay -S"
 
 pfetch

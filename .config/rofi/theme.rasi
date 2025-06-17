@@ -1,0 +1,95 @@
+@import "~/.cache/wal/colors-rofi-dark.rasi";
+
+* {
+  /* Importa as variáveis de cor do pywal */
+  main-bg:        @background;
+  main-fg:        @foreground;
+  main-br:        @color8;
+  input-bg:       @color0;
+  select-bg:      @color8;
+  select-fg:      @background;
+  
+  /* Mapeamento das cores do Catppuccin para variáveis do pywal */
+  rosewater:      @color15;
+  flamingo:       @color15;
+  pink:           @color13;
+  mauve:          @color5;
+  red:            @color1;
+  maroon:         @color9;
+  peach:          @color3;
+  yellow:         @color11;
+  green:          @color10;
+  teal:           @color6;
+  sky:            @color14;
+  sapphire:       @color12;
+  blue:           @color4;
+  lavender:       @color5;
+  text:           @foreground;
+  subtext1:       @color15;
+  subtext0:       @color7;
+  overlay2:       @color8;
+  overlay1:       @color8;
+  overlay0:       @color8;
+  surface2:       @color0;
+  surface1:       @color0;
+  surface0:       @color0;
+  base:           @background;
+  mantle:         @color0;
+  crust:          @background;
+}
+
+/* Configuração do Rofi usando as cores do pywal */
+window {
+    background-color: @main-bg;
+    border:           2px;
+    border-color:     @main-br;
+    border-radius:    10px;
+}
+
+mainbox {
+    background-color: transparent;
+}
+
+inputbar {
+    background-color: @input-bg;
+    text-color:       @main-fg;
+    border-radius:    5px;
+    padding:          8px;
+    margin:           8px;
+}
+
+prompt {
+    text-color: @main-fg;
+}
+
+entry {
+    text-color: @main-fg;
+    placeholder-color: @overlay2;
+}
+
+listview {
+    background-color: transparent;
+    margin:           8px;
+}
+
+element {
+    background-color: transparent;
+    text-color:       @main-fg;
+    border-radius:    5px;
+    padding:          4px;
+}
+
+element selected {
+    background-color: @select-bg;
+    text-color:       @select-fg;
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+element-icon {
+    background-color: transparent;
+    size:             1.2em;
+}
