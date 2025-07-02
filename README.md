@@ -1,143 +1,64 @@
-# 🚀 Dotfiles
+# dotfiles
 
-A collection of personal configuration files to customize and enhance the terminal experience.
+Personal dotfiles for Linux, focused on a streamlined, productive, and highly customizable environment. These configs are designed for easy adaptation and forking—feel free to use as a base for your own setup!
 
-## ✨ Features
+## Key Features
 
-### Starship Prompt Configuration
-- **Custom format**: Clean and informative prompt with directory, git status, and language indicators
-- **Language support**: Icons and styling for 40+ programming languages and tools
-- **Git integration**: Branch name, status indicators, and ahead/behind counters
-- **Right-aligned modules**: System info, language versions, and tools on the right side
-- **Time display**: Current time in HH:MM format
-- **Memory usage**: RAM and swap usage monitoring
+- **Modular and easy to extend**
+- **User-centric**: Minimal, but powerful defaults
+- **No bootstrap scripts**: Manual installation for transparency and control
 
-### Supported Languages & Tools
-- **Web**: Node.js, Deno, PHP
-- **Systems**: Rust, Go, C/C++, Zig
-- **Scripting**: Python, Ruby, Lua, Perl
-- **JVM**: Java, Kotlin, Scala
-- **Functional**: Haskell, Elixir, Erlang, OCaml
-- **Cloud**: AWS, Google Cloud, Azure, Terraform
-- **Containers**: Kubernetes, Singularity
-- **Package Managers**: Conda, Pixi, Spack
-- **And many more!**
+## Main Tools & Configurations
 
-## 📋 Prerequisites
+### Fish Shell
 
-- [Starship](https://starship.rs/) - Cross-shell prompt
-- A [Nerd Font](https://www.nerdfonts.com/) for proper icon display
-- Git (for version control integration)
+A modern command-line shell, configured for productivity and aesthetics. Includes custom prompts, aliases, and completions.
 
-## 🛠️ Installation
+> ![Fish Shell Screenshot](screenshots/fish.png)
 
-### 1. Install Starship
-```bash
-# Using curl
-curl -sS https://starship.rs/install.sh | sh
+### Hyprpanel
 
-# Or using package manager
-# Ubuntu/Debian
-sudo apt install starship
+Powerful and minimal status bar/panel for Wayland compositors, themed for clarity and integration with the overall desktop setup.
 
-# Arch Linux
-sudo pacman -S starship
+> ![Hyprpanel Screenshot](screenshots/hyprpanel.png)
 
-# macOS
-brew install starship
-```
+### Neovim
 
-### 2. Clone the repository
-```bash
-git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-```
+Highly tweaked Neovim configuration for coding, writing, and everything in between. Features fast startup, intuitive keybindings, and essential plugins.
 
-### 3. Create symbolic links
-```bash
-# Starship configuration
-ln -sf ~/dotfiles/.config/starship.toml ~/.config/starship.toml
-```
+> ![Neovim Screenshot](screenshots/neovim.png)
 
-### 4. Initialize Starship in your shell
+### Additional Highlights
 
-**Bash** (~/.bashrc):
-```bash
-eval "$(starship init bash)"
-```
+- **Shell utilities**: Useful aliases and functions for daily work
+- **Editor settings**: Consistent editing experience across terminals and GUIs
+- **Theming**: Unified color schemes for shell, editor, and desktop
 
-**Zsh** (~/.zshrc):
-```bash
-eval "$(starship init zsh)"
-```
+## Getting Started
 
-**Fish** (~/.config/fish/config.fish):
-```fish
-starship init fish | source
-```
+1. **Fork this repo** or clone it:
+    ```bash
+    git clone https://github.com/ticogafa/dotfiles.git
+    ```
+2. **Review configurations** and copy what you need into your `$HOME` directory.
+3. **Install dependencies** for each tool (fish, hyprpanel, neovim, etc.) using your distro’s package manager.
+4. **Symlink or copy configs** as desired. For example:
+    ```bash
+    ln -s $(pwd)/fish ~/.config/fish
+    ln -s $(pwd)/hyprpanel ~/.config/hyprpanel
+    ```
+5. Restart your shell or session to see the changes.
 
-**PowerShell** (Microsoft.PowerShell_profile.ps1):
-```powershell
-Invoke-Expression (&starship init powershell)
-```
+## Screenshots
 
-## 🎨 Customization
+| Fish Shell | Hyprpanel | Neovim |
+|------------|-----------|--------|
+| ![Fish Shell](screenshots/fish.png) | ![Hyprpanel](screenshots/hyprpanel.png) | ![Neovim](screenshots/neovim.png) |
 
-### Color Scheme
-The configuration uses a carefully selected color palette:
-- **Directory**: Bright cyan (`#8be9fd`)
-- **Git branch**: Muted gray (`#9198a1`)
-- **Git status**: Blue (`#769ff0`) with dark background
-- **Time**: Light blue (`#a0a9cb`)
-- **Languages**: Color-coded by type (blue for system langs, yellow for scripting, etc.)
+## Contributing
 
-### Adding New Languages
-To add support for a new language, add a new section to the `starship.toml`:
+Feel free to fork, open issues or pull requests, or share ideas for improvement!
 
-```toml
-[your_language]
-format = " [lang](italic) [$symbol]($style)"
-style = "bold bright-color"
-symbol = "🔧 "
-```
+## License
 
-### Modifying Icons
-All symbols can be customized by changing the `symbol` field in each module. Ensure you're using a Nerd Font for proper display.
-
-## 📁 Structure
-
-```
-dotfiles/
-├── .config/
-│   └── starship.toml    # Starship prompt configuration
-└── README.md           # This file
-```
-
-## 🔧 Troubleshooting
-
-### Icons not displaying correctly
-- Install a [Nerd Font](https://www.nerdfonts.com/)
-- Set your terminal to use the Nerd Font
-- Restart your terminal
-
-### Prompt not updating
-- Ensure Starship is properly initialized in your shell configuration
-- Restart your shell or run `source ~/.bashrc` (or equivalent)
-
-### Git information not showing
-- Ensure you're in a Git repository
-- Check that Git is installed and accessible in your PATH
-
-## 🤝 Contributing
-
-Feel free to fork this repository and customize it for your needs. If you have improvements or new features, pull requests are welcome!
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
-
-- [Starship](https://starship.rs/) - The amazing cross-shell prompt
-- [Nerd Fonts](https://www.nerdfonts.com/) - For the beautiful icons
-- The open-source community for inspiration and tools
+[MIT](LICENSE)
