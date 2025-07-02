@@ -10,23 +10,28 @@ Personal dotfiles for Linux, focused on a streamlined, productive, and highly cu
 
 ## Main Tools & Configurations
 
+> ![Desktop Screenshot](screenshots/desktop.png)
+
 ### Fish Shell
 
 A modern command-line shell, configured for productivity and aesthetics. Includes custom prompts, aliases, and completions.
 
 > ![Fish Shell Screenshot](screenshots/fish.png)
+> ![Fish Shell Screenshot](screenshots/fish-1.png)
 
 ### Hyprpanel
 
 Powerful and minimal status bar/panel for Wayland compositors, themed for clarity and integration with the overall desktop setup.
 
 > ![Hyprpanel Screenshot](screenshots/hyprpanel.png)
+> ![Hyprpanel Screenshot](screenshots/hyprpanel-1.png)
 
 ### Neovim
 
 Highly tweaked Neovim configuration for coding, writing, and everything in between. Features fast startup, intuitive keybindings, and essential plugins.
 
-> ![Neovim Screenshot](screenshots/neovim.png)
+> ![Neovim Screenshot](screenshots/nvim.png)
+> ![Neovim Screenshot](screenshots/nvim-1.png)
 
 ### Additional Highlights
 
