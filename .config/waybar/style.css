@@ -36,6 +36,19 @@ window#waybar {
   margin-right: 4px;
 }
 
+/* Clock module - minimalista no lado esquerdo */
+#clock {
+  background: transparent;
+  color: #8be9fd;
+  padding: 6px 12px;
+  margin: 0 12px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
 /* Launcher - apenas texto colorido */
 #custom-launcher {
   background: transparent;
@@ -88,8 +101,8 @@ window#waybar {
   animation: urgent 1.5s ease-in-out infinite;
 }
 
-/* Clock - destaque cyan */
-#clock {
+/* Window module - programa em foco */
+#window {
   background: transparent;
   color: #8be9fd;
   padding: 6px 12px;
@@ -98,8 +111,17 @@ window#waybar {
   font-weight: 700;
   transition: all 0.3s ease;
   border-radius: 6px;
+  min-width: 200px;
 }
 
+#window:hover {
+  color: #bd93f9;
+}
+
+#window.empty {
+  color: #6272a4;
+  font-style: italic;
+}
 
 /* Módulos do sistema - cores distintas */
 #network {
@@ -304,4 +326,47 @@ tooltip {
 
 tooltip label {
   color: #f8f8f2;
+}
+
+/* Animações */
+@keyframes urgent {
+  0% { opacity: 1; }
+  100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes charging {
+  0% { opacity: 1; }
+  100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes warning {
+  0% { opacity: 1; }
+  100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes critical {
+  0% { opacity: 1; }
+  100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes connected-pulse {
+  0% { opacity: 1; }
+  100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes update-urgent {
+  0% { opacity: 1; }
+  100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes notification-pulse {
+  0% { opacity: 1; }
+  100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }

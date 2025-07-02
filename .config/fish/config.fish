@@ -11,11 +11,13 @@ set -x PATH $JAVA_HOME/bin $PATH
 
 # Aliases
 alias ls "eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
-alias grep "grep --color=auto"
+alias grep "rg --color=auto"
 alias inv "nvim (fzf -m --preview=\"bat --color=always {}\")"
 alias cls "clear; and fastfetch"
 alias cd z
 alias u "yay -Syu"
 alias i "yay -S"
-
-pfetch
+alias pipes "pipes.sh"
+alias cbonsai "cbonsai -S"
+alias ping "gping -4"
+alias gemini-update "sudo npm install -g @google/gemini-cli"
