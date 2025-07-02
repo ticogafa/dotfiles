@@ -54,12 +54,6 @@ Highly tweaked Neovim configuration for coding, writing, and everything in betwe
     ```
 5. Restart your shell or session to see the changes.
 
-## Screenshots
-
-| Fish Shell | Hyprpanel | Neovim |
-|------------|-----------|--------|
-| ![Fish Shell](screenshots/fish.png) | ![Hyprpanel](screenshots/hyprpanel.png) | ![Neovim](screenshots/neovim.png) |
-
 ## Contributing
 
 Feel free to fork, open issues or pull requests, or share ideas for improvement!
