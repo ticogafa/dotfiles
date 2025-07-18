@@ -17,6 +17,7 @@ alias cls "clear; and fastfetch"
 alias cd z
 alias u "yay -Syu"
 alias i "yay -S"
+alias r "yay -Rns"
 alias pipes "pipes.sh"
 alias cbonsai "cbonsai -S"
 alias ping "gping -4"
