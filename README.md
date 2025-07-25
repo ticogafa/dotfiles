@@ -23,11 +23,8 @@ A modern command-line shell, configured for productivity and aesthetics. Include
 
 Minimal and highly customizable status bar for Wayland compositors, replacing Hyprpanel in this setup. Themed for clarity and seamless desktop integration.
 
-<!-- Adicione as novas imagens da Waybar aqui depois -->
-<!-- Exemplo:
 ![Waybar Screenshot](screenshots/waybar.png)
 ![Waybar Screenshot](screenshots/waybar-1.png)
--->
 
 ### Neovim
 
