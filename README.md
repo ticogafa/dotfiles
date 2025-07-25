@@ -68,12 +68,7 @@ Para detalhes específicos, veja o histórico de commits:
 
 ## Seção de Vídeos
 
-Explore demonstrações e tutoriais visuais na pasta `videos`.  
-Inclua aqui instruções ou links para vídeos gravados que mostram o uso ou instalação dos dotfiles.
-
-> Exemplos de vídeo (adicione os nomes dos arquivos ou links assim que disponíveis):
-> - `videos/demo-instalacao.mp4`
-> - `videos/customizacao-shell.mp4`
+> - `video/2025-07-25 08-55-40.mp4`
 
 ## Contributing
 
