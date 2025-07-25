@@ -68,7 +68,9 @@ Para detalhes específicos, veja o histórico de commits:
 
 ## Seção de Vídeos
 
-> - `video/2025-07-25 08-55-40.mp4`
+<video src="video/2025-07-25 08-55-40.mp4" controls width="600">
+  Seu navegador não suporta a tag de vídeo.
+</video>
 
 ## Contributing
 
