@@ -133,10 +133,14 @@ tooltip {
     text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
 
 }
-#custom-logout{
+#custom-logout, #pulseaudio{
     padding: 0px 5px;
     transition: all .3s ease; 
     color:@color7;
+}
+#pulseaudio:hover{
+    transition: all .3s ease;
+    color:@color9;
 }
 #tray{
     padding: 0px 5px;

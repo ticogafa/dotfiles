@@ -4,7 +4,6 @@
     "reload_style_on_change": true,
     "modules-center": ["hyprland/workspaces"],
 
-
     "hyprland/workspaces": {
         "format": "{icon}",
         "format-icons": {
@@ -15,11 +14,6 @@
         "persistent-workspaces": {
             "*": [ 1,2,3,4,5 ]
         }
-    },
-    "custom/logout": {
-        "format": "",
-        "on-click": "wlogout -b 2",
-        "tooltip": false
     }
 } 
 
