@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal dotfiles for Linux, focused on a streamlined, productive, and highly customizable environment. These configs are designed for easy adaptation and forking—feel free to use as a base for your own setup!
+Personal dotfiles for Linux, focused on a streamlined, productive, and highly customizable environment. These configs are designed for easy adaptation and forking—feel free to use as a base for your own workspace!
 
 ## Key Features
 
@@ -53,6 +53,27 @@ Highly tweaked Neovim configuration for coding, writing, and everything in betwe
     ln -s $(pwd)/hyprpanel ~/.config/hyprpanel
     ```
 5. Restart your shell or session to see the changes.
+
+## Recent Changes
+
+Confira as últimas atualizações e melhorias realizadas no repositório nos commits mais recentes:
+
+- Ajustes e otimizações em diversas configurações.
+- Novos aliases e funções para shell.
+- Atualizações na personalização do Neovim, Fish Shell e Hyprpanel.
+- Melhorias de integração visual e usabilidade geral.
+
+Para detalhes específicos, veja o histórico de commits:  
+[Commits recentes](https://github.com/ticogafa/dotfiles/commits/main)
+
+## Seção de Vídeos
+
+Explore demonstrações e tutoriais visuais na pasta `videos`.  
+Inclua aqui instruções ou links para vídeos gravados que mostram o uso ou instalação dos dotfiles.
+
+> Exemplos de vídeo (adicione os nomes dos arquivos ou links assim que disponíveis):
+> - `videos/demo-instalacao.mp4`
+> - `videos/customizacao-shell.mp4`
 
 ## Contributing
 
