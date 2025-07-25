@@ -19,12 +19,15 @@ A modern command-line shell, configured for productivity and aesthetics. Include
 ![Fish Shell Screenshot](screenshots/fish.png)
 ![Fish Shell Screenshot](screenshots/fish-1.png)
 
-### Hyprpanel
+### Waybar
 
-Powerful and minimal status bar/panel for Wayland compositors, themed for clarity and integration with the overall desktop setup.
+Minimal and highly customizable status bar for Wayland compositors, replacing Hyprpanel in this setup. Themed for clarity and seamless desktop integration.
 
-![Hyprpanel Screenshot](screenshots/hyprpanel.png)
-![Hyprpanel Screenshot](screenshots/hyprpanel-1.png)
+<!-- Adicione as novas imagens da Waybar aqui depois -->
+<!-- Exemplo:
+![Waybar Screenshot](screenshots/waybar.png)
+![Waybar Screenshot](screenshots/waybar-1.png)
+-->
 
 ### Neovim
 
@@ -46,11 +49,11 @@ Highly tweaked Neovim configuration for coding, writing, and everything in betwe
     git clone https://github.com/ticogafa/dotfiles.git
     ```
 2. **Review configurations** and copy what you need into your `$HOME` directory.
-3. **Install dependencies** for each tool (fish, hyprpanel, neovim, etc.) using your distro’s package manager.
+3. **Install dependencies** for each tool (fish, waybar, neovim, etc.) using your distro’s package manager.
 4. **Symlink or copy configs** as desired. For example:
     ```bash
     ln -s $(pwd)/fish ~/.config/fish
-    ln -s $(pwd)/hyprpanel ~/.config/hyprpanel
+    ln -s $(pwd)/waybar ~/.config/waybar
     ```
 5. Restart your shell or session to see the changes.
 
@@ -60,7 +63,7 @@ Confira as últimas atualizações e melhorias realizadas no repositório nos co
 
 - Ajustes e otimizações em diversas configurações.
 - Novos aliases e funções para shell.
-- Atualizações na personalização do Neovim, Fish Shell e Hyprpanel.
+- Atualizações na personalização do Neovim, Fish Shell e Waybar.
 - Melhorias de integração visual e usabilidade geral.
 
 Para detalhes específicos, veja o histórico de commits:  
