@@ -2,8 +2,8 @@
   "bar.customModules.storage.paths": [
     "/"
   ],
-  "theme.font.name": "JetBrainsMono Nerd Font",
-  "theme.font.label": "JetBrainsMono Nerd Font Thin",
+  "theme.font.name": "CaskaydiaCove Nerd Font",
+  "theme.font.label": "CaskaydiaCove Nerd Font",
   "terminal": "kitty",
   "theme.font.weight": 500,
   "theme.bar.menus.enableShadow": true,
@@ -24,7 +24,7 @@
   "theme.bar.menus.popover.scaling": 80,
   "theme.bar.floating": true,
   "theme.bar.enableShadow": false,
-  "bar.workspaces.show_icons": false,
+  "bar.workspaces.show_icons": true,
   "bar.workspaces.show_numbered": false,
   "bar.workspaces.showWsIcons": false,
   "theme.bar.buttons.windowtitle.enableBorder": false,
@@ -63,16 +63,16 @@
   "wallpaper.pywal": true,
   "theme.bar.menus.background": "#3d3846",
   "theme.bar.menus.cards": "#241f31",
-  "theme.bar.transparent": true,
+  "theme.bar.transparent": false,
   "theme.bar.buttons.style": "default",
-  "theme.bar.opacity": 50,
+  "theme.bar.opacity": 45,
   "theme.bar.buttons.opacity": 95,
-  "theme.bar.buttons.background_opacity": 95,
-  "theme.bar.buttons.background_hover_opacity": 95,
+  "theme.bar.buttons.background_opacity": 0,
+  "theme.bar.buttons.background_hover_opacity": 100,
   "theme.bar.buttons.monochrome": false,
   "theme.matugen": true,
-  "wallpaper.image": "/home/ticolinux/.background/5748285.jpg",
-  "theme.notification.opacity": 90,
+  "wallpaper.image": "/home/ticolinux/.config/backgrounds/5748285.jpg",
+  "theme.notification.opacity": 55,
   "theme.osd.opacity": 90,
   "theme.bar.menus.opacity": 95,
   "menus.transition": "crossfade",
@@ -86,9 +86,7 @@
         "workspaces",
         "windowtitle"
       ],
-      "middle": [
-        "media"
-      ],
+      "middle": [],
       "right": [
         "volume",
         "clock",
@@ -105,19 +103,18 @@
         "workspaces",
         "storage",
         "cpu",
-        "windowtitle"
+        "systray"
       ],
       "middle": [
-        "media"
+        "clock"
       ],
       "right": [
-        "systray",
+        "media",
         "updates",
         "volume",
         "network",
         "bluetooth",
         "battery",
-        "clock",
         "notifications",
         "power"
       ]
@@ -129,5 +126,9 @@
   "wallpaper.enable": true,
   "notifications.clearDelay": 20000,
   "theme.matugen_settings.scheme_type": "content",
-  "theme.matugen_settings.variation": "standard_1"
+  "theme.matugen_settings.variation": "standard_1",
+  "theme.bar.location": "top",
+  "bar.autoHide": "never",
+  "theme.bar.buttons.enableBorders": false,
+  "bar.workspaces.numbered_active_indicator": "highlight"
 }
