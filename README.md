@@ -68,9 +68,9 @@ Para detalhes específicos, veja o histórico de commits:
 
 ## Seção de Vídeos
 
-<video src="video/2025-07-25 08-55-40.mp4" controls width="600">
-  Seu navegador não suporta a tag de vídeo.
-</video>
+[▶️ Assista ao vídeo de demonstração](video/2025-07-25%2008-55-40.mp4)
+
+> Caso o vídeo não abra diretamente, faça o download e assista localmente.
 
 ## Contributing
 
