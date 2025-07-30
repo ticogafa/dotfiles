@@ -8,6 +8,7 @@ zoxide init fish | source
 set -x STARSHIP
 set -x JAVA_HOME /usr/lib/jvm/java-24-openjdk/
 set -x PATH $JAVA_HOME/bin $PATH
+set -x GEMINI_API_KEY AIzaSyDV-ZrDnWreR_rDTZSA8S0SNcd7z3EmtwM
 
 # Aliases
 alias ls "eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
@@ -21,7 +22,7 @@ alias r "yay -Rns"
 alias pipes "pipes.sh"
 alias cbonsai "cbonsai -S"
 alias ping "gping -4"
-alias gemini-update "sudo npm install -g @google/gemini-cli"
+alias gemini-update "npm install -g @google/gemini-cli"
 alias scan "sudo lynis audit system"
 alias music "yt-dlp -x --audio-format mp3 -o '~/Músicas/%(title)s.%(ext)s'"
 alias h Hyprland

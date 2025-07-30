@@ -6,9 +6,9 @@
         "margin-top": 7,
         "margin-bottom": 0,
         "reload_style_on_change": true,
-        "modules-left": ["clock","custom/pacman","tray"],
+        "modules-left": ["custom/notification","clock","custom/pacman","tray"],
         "modules-center": ["hyprland/workspaces"],
-        "modules-right": ["group/expand","pulseaudio","bluetooth","network","battery", "custom/logout"],
+        "modules-right": ["group/expand","network","battery", "custom/logout"],
 
         "hyprland/workspaces": {
             "format": "{icon}",
@@ -106,7 +106,7 @@
                 "transition-to-left": true,
                 "click-to-reveal": true
             },
-            "modules": ["custom/expand","cpu","memory","temperature","custom/endpoint"],
+            "modules": ["custom/expand","cpu","memory","temperature","custom/endpoint","pulseaudio","bluetooth"],
         },
         "custom/colorpicker": {
             "format": "",
