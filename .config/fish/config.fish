@@ -8,8 +8,6 @@ zoxide init fish | source
 set -x STARSHIP
 set -x JAVA_HOME /usr/lib/jvm/java-24-openjdk/
 set -x PATH $JAVA_HOME/bin $PATH
-set -x GEMINI_API_KEY AIzaSyDV-ZrDnWreR_rDTZSA8S0SNcd7z3EmtwM
-
 # Aliases
 alias ls "eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias grep "rg --color=auto"
