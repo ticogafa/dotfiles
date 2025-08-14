@@ -1,0 +1,8 @@
+# ~/.config/systemd/user/hyprland-resume-task.service
+
+[Unit]
+Description=Task to run on resume from suspend
+
+[Service]
+Type=oneshot
+ExecStart=/home/ticolinux/.config/hypr/scripts/autostart.sh

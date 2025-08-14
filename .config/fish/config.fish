@@ -8,6 +8,8 @@ zoxide init fish | source
 set -x STARSHIP
 set -x JAVA_HOME /usr/lib/jvm/java-24-openjdk/
 set -x PATH $JAVA_HOME/bin $PATH
+set -x EDITOR nvim
+
 # Aliases
 alias ls "eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias grep "rg --color=auto"

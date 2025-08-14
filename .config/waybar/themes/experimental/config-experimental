@@ -118,7 +118,8 @@
             "tooltip": true
         },
         "memory": {
-            "format": ""
+            "format": "",
+            "on-click": "kitty -e fish -c ncdu"
         },
         "temperature": {
             "critical-threshold": 80,
