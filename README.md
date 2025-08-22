@@ -68,7 +68,7 @@ Para detalhes específicos, veja o histórico de commits:
 
 ## Seção de Vídeos
 
-[▶️ Assista ao vídeo de demonstração](video/2025-07-25%2008-55-40.mp4)
+[▶️ Assista ao vídeo de demonstração](video/2025-08-22%14-55-43.mp4)
 
 > Caso o vídeo não abra diretamente, faça o download e assista localmente.
 
