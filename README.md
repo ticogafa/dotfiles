@@ -1,179 +1,81 @@
-# ticogafa/dotfiles
+# dotfiles
 
-Opinionated, reproducible development environment for macOS and Linux: shell, editor, terminal, tooling, and sensible defaults.
+Personal dotfiles for Linux, focused on a streamlined, productive, and highly customizable environment. These configs are designed for easy adaptation and forking—feel free to use as a base for your own workspace!
 
-<!--
-Note: Image paths below are placeholders. Replace them with the correct relative paths for your existing images in this repo.
--->
+## Key Features
 
-## Screenshots
+- **Modular and easy to extend**
+- **User-centric**: Minimal, but powerful defaults
+- **No bootstrap scripts**: Manual installation for transparency and control
 
-- Desktop
-  ![Desktop](./images/desktop.png)
+## Main Tools & Configurations
 
-- Terminal
-  ![Terminal](./images/terminal.png)
+![Desktop Screenshot](screenshots/desktop.png)
 
-- Neovim
-  ![Neovim](./images/neovim.png)
+### Fish Shell
 
-- Tmux
-  ![Tmux](./images/tmux.png)
+A modern command-line shell, configured for productivity and aesthetics. Includes custom prompts, aliases, and completions.
 
-- Git / Diffs
-  ![Git](./images/git.png)
+![Fish Shell Screenshot](screenshots/fish.png)
+![Fish Shell Screenshot](screenshots/fish-1.png)
 
+### Waybar
 
-## What’s inside
+Minimal and highly customizable status bar for Wayland compositors, replacing Hyprpanel in this setup. Themed for clarity and seamless desktop integration.
 
-- Shell: zsh with aliases, functions, and prompt
-- Editor: Neovim configuration (LSP, Treesitter, formatting, linting)
-- Terminal multiplexer: tmux config and plugins
-- Git: global config, ignore rules, helpful aliases
-- Package management: Homebrew bundle (macOS), common CLI tools
-- macOS defaults: opinionated system preferences (if applicable)
-- Fonts and terminal: configuration for popular terminals and dev fonts
-- Scripts: bootstrap and update helpers
-- Language toolchains: optional setup hooks (e.g., Node, Python, Go, etc.)
+![Waybar Screenshot](screenshots/waybar.png)
+![Waybar Screenshot](screenshots/waybar-1.png)
 
-Note: The exact modules and tools depend on the repository contents. Adjust the “What’s inside” list to match the directories you enable with symlinks or your dotfile manager.
+### Neovim
 
+Highly tweaked Neovim configuration for coding, writing, and everything in between. Features fast startup, intuitive keybindings, and essential plugins.
 
-## Quick start
+![Neovim Screenshot](screenshots/nvim.png)
+![Neovim Screenshot](screenshots/nvim-1.png)
 
-Clone this repository:
+### Additional Highlights
 
-```bash
-# SSH
-git clone git@github.com:ticogafa/dotfiles.git ~/.dotfiles
-# or HTTPS
-git clone https://github.com/ticogafa/dotfiles ~/.dotfiles
-cd ~/.dotfiles
-```
+- **Shell utilities**: Useful aliases and functions for daily work
+- **Editor settings**: Consistent editing experience across terminals and GUIs
+- **Theming**: Unified color schemes for shell, editor, and desktop
 
-Choose one of the approaches below to manage symlinks and apply the configuration.
+## Getting Started
 
+1. **Fork this repo** or clone it:
+    ```bash
+    git clone https://github.com/ticogafa/dotfiles.git
+    ```
+2. **Review configurations** and copy what you need into your `$HOME` directory.
+3. **Install dependencies** for each tool (fish, waybar, neovim, etc.) using your distro’s package manager.
+4. **Symlink or copy configs** as desired. For example:
+    ```bash
+    ln -s $(pwd)/fish ~/.config/fish
+    ln -s $(pwd)/waybar ~/.config/waybar
+    ```
+5. Restart your shell or session to see the changes.
 
-### Option A: GNU Stow (recommended)
+## Recent Changes
 
-```bash
-# macOS (Homebrew)
-brew install stow
-# Debian/Ubuntu
-sudo apt-get update && sudo apt-get install -y stow
+Confira as últimas atualizações e melhorias realizadas no repositório nos commits mais recentes:
 
-# From the repo root, stow the modules you want:
-stow zsh
-stow git
-stow nvim
-stow tmux
-# stow <module> ...
-```
+- Ajustes e otimizações em diversas configurações.
+- Novos aliases e funções para shell.
+- Atualizações na personalização do Neovim, Fish Shell e Waybar.
+- Melhorias de integração visual e usabilidade geral.
 
-This will create symlinks from the repository to your home directory. For example, `stow zsh` links files from `zsh/` to `~`.
+Para detalhes específicos, veja o histórico de commits:  
+[Commits recentes](https://github.com/ticogafa/dotfiles/commits/main)
 
+## Seção de Vídeos
 
-### Option B: Chezmoi
+[▶️ Assista ao vídeo de demonstração](video/2025-07-25%2008-55-40.mp4)
 
-If you prefer Chezmoi for managing dotfiles:
-
-```bash
-# macOS
-brew install chezmoi
-# Debian/Ubuntu
-sudo apt-get install -y chezmoi
-
-chezmoi init --apply ticogafa
-```
-
-Chezmoi will clone and apply your configuration to your home directory.
-
-
-### Option C: Manual bootstrap script
-
-If this repo includes a bootstrap script:
-
-```bash
-chmod +x script/bootstrap
-./script/bootstrap
-```
-
-This typically installs prerequisites and creates symlinks. Inspect the script before running to understand what it does.
-
-
-## Prerequisites
-
-- macOS or a modern Linux distribution
-- Git
-- One of:
-  - GNU Stow (if using Option A)
-  - Chezmoi (if using Option B)
-- Optional:
-  - Homebrew (macOS): https://brew.sh
-  - Common CLI tools (e.g., fzf, ripgrep, bat)
-  - A Nerd Font (e.g., JetBrains Mono Nerd Font)
-
-
-## Updating
-
-Pull the latest changes and re-apply:
-
-```bash
-cd ~/.dotfiles
-git pull
-# If using Stow, re-stow modules you’ve changed:
-stow -R zsh git nvim tmux
-# If using Chezmoi:
-chezmoi apply
-```
-
-
-## macOS defaults (optional)
-
-If this repo contains a `macos` or `defaults` script, run it to apply system preferences:
-
-```bash
-chmod +x script/macos
-./script/macos
-```
-
-Log out and back in (or restart) for some settings to take effect.
-
-
-## Structure (example)
-
-```
-~/.dotfiles
-├─ zsh/           # .zshrc, zsh functions, completions
-├─ nvim/          # Neovim config (init.lua/lua/)
-├─ tmux/          # .tmux.conf and plugins
-├─ git/           # .gitconfig, .gitignore_global
-├─ brew/          # Brewfile for macOS packages
-├─ script/        # bootstrap, macos, update helpers
-└─ images/        # screenshots used in this README
-```
-
-Adjust this map to match the actual directories in your repository.
-
-
-## Troubleshooting
-
-- Stow created files in the wrong place
-  - Ensure you run `stow` from the repo root (where module directories live).
-  - Use `stow -n <module>` to do a dry run first.
-- Conflicting existing files
-  - Back up or remove conflicting dotfiles before stowing.
-- Neovim LSP/formatters not working
-  - Make sure language servers and formatters are installed (Mason or system package managers).
-- Fonts/icons look wrong in terminal
-  - Install a Nerd Font and set your terminal to use it.
-
+> Caso o vídeo não abra diretamente, faça o download e assista localmente.
 
 ## Contributing
 
-PRs and suggestions welcome. If you borrow ideas, credit is appreciated.
-
+Feel free to fork, open issues or pull requests, or share ideas for improvement!
 
 ## License
 
-Unless noted otherwise in the repository, consider this configuration MIT-licensed. If a LICENSE file exists here, it governs.
+[MIT](LICENSE)
