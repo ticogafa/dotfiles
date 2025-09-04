@@ -26,3 +26,4 @@ alias gemini-update "npm install -g @google/gemini-cli"
 alias scan "sudo lynis audit system"
 alias music "yt-dlp -x --audio-format mp3 -o '~/Músicas/%(title)s.%(ext)s'"
 alias h Hyprland
+fish_add_path $HOME/.local/bin
