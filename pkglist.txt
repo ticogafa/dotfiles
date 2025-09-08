@@ -33,6 +33,7 @@ fastfetch
 fd
 firefox
 fish
+flatpak
 fzf
 gamescope
 git
