@@ -16,7 +16,7 @@ alias grep "rg --color=auto"
 alias inv "nvim (fzf -m --preview=\"bat --color=always {}\")"
 alias cls "clear; and fastfetch"
 alias cd z
-alias u "yay -Syu"
+alias u "sudo pacman -Syu"
 alias i "yay -S --needed"
 alias r "yay -Rns"
 alias pipes "pipes.sh"
