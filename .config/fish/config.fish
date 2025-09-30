@@ -6,7 +6,7 @@ zoxide init fish | source
 
 # Variáveis de Ambiente
 set -x STARSHIP
-set -x JAVA_HOME /usr/lib/jvm/java-24-openjdk/
+set -x JAVA_HOME /usr/lib/jvm/java-25-openjdk/
 set -x PATH $JAVA_HOME/bin $PATH
 set -x EDITOR nvim
 
@@ -24,6 +24,6 @@ alias cbonsai "cbonsai -S"
 alias ping "gping -4"
 alias gemini-update "npm install -g @google/gemini-cli"
 alias scan "sudo lynis audit system"
-alias music "yt-dlp -x --audio-format mp3 -o '~/Músicas/%(title)s.%(ext)s'"
+alias music "yt-dlp -x --audio-format mp3 -o '~/Músicas/%(title)s.%(ext)s' --no-playlist"
 alias h Hyprland
 fish_add_path $HOME/.local/bin
