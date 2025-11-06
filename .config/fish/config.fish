@@ -22,7 +22,6 @@ alias r "yay -Rns"
 alias pipes "pipes.sh"
 alias cbonsai "cbonsai -S"
 alias ping "gping -4"
-alias gemini-update "npm install -g @google/gemini-cli"
 alias scan "sudo lynis audit system"
 alias music "yt-dlp -x --audio-format mp3 -o '~/Músicas/%(title)s.%(ext)s' --no-playlist"
 alias h Hyprland
