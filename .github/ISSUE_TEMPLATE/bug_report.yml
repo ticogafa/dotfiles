@@ -1,0 +1,88 @@
+name: 🐛 Bug Report
+description: Reportar um problema ou comportamento inesperado
+title: "[BUG] "
+labels: ["bug", "triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por reportar um bug! Por favor, preencha os campos abaixo.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição do Problema
+      description: Descreva o que aconteceu de forma clara e concisa
+      placeholder: Quando executo X, Y acontece...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passos para Reproduzir
+      description: Como podemos reproduzir o problema?
+      placeholder: |
+        1. Execute o comando '...'
+        2. Clique em '...'
+        3. Observe o erro
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamento Esperado
+      description: O que você esperava que acontecesse?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Comportamento Atual
+      description: O que realmente aconteceu?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Componente Afetado
+      options:
+        - Hyprland config
+        - Waybar
+        - Scripts
+        - Install.sh
+        - Neovim config
+        - Fish config
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Ambiente
+      description: Informações sobre seu sistema
+      value: |
+        - Distro: [ex: Arch Linux]
+        - Kernel: [ex: 6.6.0]
+        - GPU: [ex: AMD RX 6700 XT]
+        - Hyprland version: [output de `hyprctl version`]
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs Relevantes
+      description: Cole aqui qualquer log ou mensagem de erro
+      render: shell
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Informações Adicionais
+      description: Qualquer outra informação que possa ajudar

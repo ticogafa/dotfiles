@@ -1,0 +1,78 @@
+name: Validate Package Lists
+
+# Executa quando há mudanças nas listas de pacotes
+on:
+  push:
+    paths:
+      - 'pkglist.txt'
+      - 'aur_pkglist.txt'
+  pull_request:
+    paths:
+      - 'pkglist.txt'
+      - 'aur_pkglist.txt'
+
+jobs:
+  validate:
+    name: Validar Listas de Pacotes
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Verifica duplicatas entre pkglist.txt e aur_pkglist.txt
+      - name: Check for duplicates
+        run: |
+          echo "🔍 Verificando pacotes duplicados..."
+          duplicates=$(comm -12 <(sort pkglist.txt) <(sort aur_pkglist.txt))
+          if [ -n "$duplicates" ]; then
+            echo "❌ Pacotes duplicados encontrados:"
+            echo "$duplicates"
+            exit 1
+          else
+            echo "✅ Nenhum pacote duplicado encontrado"
+          fi
+
+      # Verifica se os arquivos estão ordenados alfabeticamente
+      - name: Check alphabetical order
+        run: |
+          echo "🔍 Verificando ordem alfabética..."
+          
+          # Verifica pkglist.txt
+          if ! diff -q pkglist.txt <(sort pkglist.txt) > /dev/null; then
+            echo "⚠️  pkglist.txt não está ordenado alfabeticamente"
+            echo "Execute: sort -o pkglist.txt pkglist.txt"
+          else
+            echo "✅ pkglist.txt está ordenado"
+          fi
+          
+          # Verifica aur_pkglist.txt
+          if ! diff -q aur_pkglist.txt <(sort aur_pkglist.txt) > /dev/null; then
+            echo "⚠️  aur_pkglist.txt não está ordenado alfabeticamente"
+            echo "Execute: sort -o aur_pkglist.txt aur_pkglist.txt"
+          else
+            echo "✅ aur_pkglist.txt está ordenado"
+          fi
+
+      # Verifica linhas vazias
+      - name: Check for empty lines
+        run: |
+          echo "🔍 Verificando linhas vazias..."
+          
+          if grep -q '^$' pkglist.txt; then
+            echo "⚠️  pkglist.txt contém linhas vazias"
+          fi
+          
+          if grep -q '^$' aur_pkglist.txt; then
+            echo "⚠️  aur_pkglist.txt contém linhas vazias"
+          fi
+          
+          echo "✅ Verificação concluída"
+
+      # Conta total de pacotes
+      - name: Count packages
+        run: |
+          echo "📊 Estatísticas de pacotes:"
+          echo "- Pacotes oficiais: $(wc -l < pkglist.txt)"
+          echo "- Pacotes AUR: $(wc -l < aur_pkglist.txt)"
+          echo "- Total: $(($(wc -l < pkglist.txt) + $(wc -l < aur_pkglist.txt)))"

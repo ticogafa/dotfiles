@@ -1,0 +1,60 @@
+name: Test Symlink Creation
+
+# Testa se os symlinks seriam criados corretamente
+on:
+  push:
+    paths:
+      - 'install.sh'
+      - '.config/**'
+  pull_request:
+    paths:
+      - 'install.sh'
+      - '.config/**'
+
+jobs:
+  test-install:
+    name: Testar Script de Instalação
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Simula ambiente de instalação
+      - name: Setup test environment
+        run: |
+          mkdir -p ~/.config
+          mkdir -p ~/test-backup
+
+      # Testa criação de symlinks (dry-run)
+      - name: Test symlink creation
+        run: |
+          echo "🔍 Testando criação de symlinks..."
+          
+          # Lista de configs esperados
+          configs=(
+            "hypr"
+            "fish"
+            "kitty"
+            "nvim"
+            "waybar"
+            "wofi"
+          )
+          
+          # Verifica se cada diretório existe
+          for config in "${configs[@]}"; do
+            if [ -e ".config/$config" ]; then
+              echo "✅ .config/$config existe"
+            else
+              echo "❌ .config/$config NÃO encontrado"
+              exit 1
+            fi
+          done
+          
+          echo "✅ Todos os diretórios de configuração estão presentes"
+
+      # Valida sintaxe do script de instalação
+      - name: Validate install.sh syntax
+        run: |
+          bash -n install.sh
+          echo "✅ Sintaxe do install.sh está válida"

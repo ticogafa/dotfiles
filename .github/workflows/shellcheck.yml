@@ -1,0 +1,34 @@
+name: ShellCheck
+
+# Executa em push e pull requests
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  shellcheck:
+    name: Validar Scripts Shell
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Checkout do código
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Executar ShellCheck em todos os scripts .sh
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          # Ignora alguns warnings comuns em dotfiles
+          ignore_paths: .config/ranger/scope.sh
+          severity: warning
+          
+      # 3. Reportar resultados
+      - name: Upload ShellCheck results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: shellcheck-results
+          path: shellcheck.log

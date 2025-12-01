@@ -1,0 +1,66 @@
+name: Generate Preview
+
+# Workflow para gerar previews e documentação automática
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.config/waybar/**'
+      - '.config/hypr/**'
+      - 'screenshots/**'
+
+jobs:
+  update-readme:
+    name: Atualizar README com Estatísticas
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Gera estatísticas do repositório
+      - name: Generate statistics
+        run: |
+          echo "📊 Gerando estatísticas..."
+          
+          # Conta scripts
+          SCRIPT_COUNT=$(find .config -name "*.sh" | wc -l)
+          
+          # Conta pacotes
+          PKG_COUNT=$(wc -l < pkglist.txt)
+          AUR_COUNT=$(wc -l < aur_pkglist.txt)
+          TOTAL_PKG=$((PKG_COUNT + AUR_COUNT))
+          
+          # Conta linhas de código
+          TOTAL_LINES=$(find .config -name "*.sh" -o -name "*.lua" -o -name "*.fish" | xargs wc -l | tail -1 | awk '{print $1}')
+          
+          echo "::notice::Scripts: $SCRIPT_COUNT"
+          echo "::notice::Pacotes: $TOTAL_PKG"
+          echo "::notice::Linhas de código: $TOTAL_LINES"
+          
+          # Salva em arquivo
+          cat > STATS.md << EOF
+          # 📊 Estatísticas do Repositório
+          
+          - 📝 Scripts Shell: **$SCRIPT_COUNT**
+          - 📦 Pacotes Oficiais: **$PKG_COUNT**
+          - 🔧 Pacotes AUR: **$AUR_COUNT**
+          - 💾 Total de Pacotes: **$TOTAL_PKG**
+          - 📄 Linhas de Código: **$TOTAL_LINES**
+          
+          *Atualizado automaticamente em $(date)*
+          EOF
+
+      # Commit das mudanças (se houver)
+      - name: Commit statistics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add STATS.md
+            git commit -m "docs: update repository statistics [skip ci]"
+            git push
+          else
+            echo "Nenhuma mudança para commit"
+          fi

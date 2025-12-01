@@ -1,0 +1,55 @@
+name: Auto-Update Package Lists
+
+# Workflow manual ou agendado para atualizar listas de pacotes
+on:
+  workflow_dispatch:  # Permite execução manual
+  schedule:
+    # Executa toda segunda-feira às 9h UTC
+    - cron: '0 9 * * 1'
+
+jobs:
+  update:
+    name: Atualizar Listas de Pacotes
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Ordena e limpa as listas
+      - name: Sort and clean package lists
+        run: |
+          echo "🔧 Ordenando e limpando listas de pacotes..."
+          
+          # Remove duplicatas e ordena pkglist.txt
+          sort -u pkglist.txt -o pkglist.txt
+          
+          # Remove duplicatas e ordena aur_pkglist.txt
+          sort -u aur_pkglist.txt -o aur_pkglist.txt
+          
+          # Remove linhas vazias
+          sed -i '/^$/d' pkglist.txt
+          sed -i '/^$/d' aur_pkglist.txt
+          
+          echo "✅ Limpeza concluída"
+
+      # Cria Pull Request se houver mudanças
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: 'chore: auto-update package lists'
+          title: '🤖 Atualização Automática das Listas de Pacotes'
+          body: |
+            ## 📦 Atualização Automática
+            
+            Este PR foi criado automaticamente para atualizar as listas de pacotes.
+            
+            ### Mudanças:
+            - ✅ Pacotes ordenados alfabeticamente
+            - ✅ Duplicatas removidas
+            - ✅ Linhas vazias removidas
+            
+            Por favor, revise antes de fazer merge.
+          branch: auto-update-pkglist
+          delete-branch: true
+          labels: automated, maintenance
