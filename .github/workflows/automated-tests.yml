@@ -1,0 +1,386 @@
+name: Automated Tests
+
+# Testes automatizados completos do repositório
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  # 1. Teste de Sintaxe de Arquivos
+  syntax-check:
+    name: Verificar Sintaxe de Arquivos
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Testar sintaxe Fish
+        run: |
+          echo "🐟 Testando sintaxe de arquivos Fish..."
+          sudo apt-get update -qq
+          sudo apt-get install -y fish
+          
+          fish_files=$(find . -name "*.fish" 2>/dev/null || true)
+          if [ -n "$fish_files" ]; then
+            echo "$fish_files" | while read -r file; do
+              echo "Testando: $file"
+              fish -n "$file" || exit 1
+            done
+            echo "✅ Todos os arquivos Fish têm sintaxe válida"
+          else
+            echo "ℹ️ Nenhum arquivo .fish encontrado"
+          fi
+      
+      - name: Testar sintaxe Lua
+        run: |
+          echo "🌙 Testando sintaxe de arquivos Lua..."
+          sudo apt-get install -y lua5.4
+          
+          lua_files=$(find . -name "*.lua" 2>/dev/null || true)
+          if [ -n "$lua_files" ]; then
+            echo "$lua_files" | while read -r file; do
+              echo "Testando: $file"
+              lua -l "$file" 2>/dev/null || luac -p "$file" || exit 1
+            done
+            echo "✅ Todos os arquivos Lua têm sintaxe válida"
+          else
+            echo "ℹ️ Nenhum arquivo .lua encontrado"
+          fi
+      
+      - name: Validar arquivos JSON
+        run: |
+          echo "📋 Validando arquivos JSON..."
+          json_files=$(find . -name "*.json" 2>/dev/null || true)
+          if [ -n "$json_files" ]; then
+            echo "$json_files" | while read -r file; do
+              echo "Validando: $file"
+              python3 -m json.tool "$file" > /dev/null || exit 1
+            done
+            echo "✅ Todos os arquivos JSON são válidos"
+          else
+            echo "ℹ️ Nenhum arquivo .json encontrado"
+          fi
+      
+      - name: Validar arquivos YAML
+        run: |
+          echo "📄 Validando arquivos YAML..."
+          pip install pyyaml
+          yaml_files=$(find . -name "*.yml" -o -name "*.yaml" 2>/dev/null || true)
+          if [ -n "$yaml_files" ]; then
+            echo "$yaml_files" | while read -r file; do
+              echo "Validando: $file"
+              python3 -c "import yaml; yaml.safe_load(open('$file'))" || exit 1
+            done
+            echo "✅ Todos os arquivos YAML são válidos"
+          else
+            echo "ℹ️ Nenhum arquivo .yaml encontrado"
+          fi
+
+  # 2. Teste de Dependências
+  dependency-check:
+    name: Verificar Dependências dos Scripts
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Extrair e listar comandos necessários
+        run: |
+          echo "🔍 Extraindo comandos usados nos scripts..."
+          
+          # Extrai comandos de verificação (command -v, which, type)
+          grep -rh "command -v\|which " .config --include="*.sh" 2>/dev/null | \
+            sed -E 's/.*command -v ([a-zA-Z0-9_-]+).*/\1/; s/.*which ([a-zA-Z0-9_-]+).*/\1/' | \
+            grep -v "^$" | \
+            sort -u > required_commands.txt || true
+          
+          # Extrai comandos executados diretamente
+          grep -roh "^\s*[a-z][a-z0-9_-]*" .config --include="*.sh" 2>/dev/null | \
+            tr -d ' ' | \
+            grep -v "^if$\|^then$\|^else$\|^fi$\|^for$\|^do$\|^done$\|^while$\|^echo$" | \
+            sort -u >> required_commands.txt || true
+          
+          if [ -f required_commands.txt ] && [ -s required_commands.txt ]; then
+            sort -u required_commands.txt -o required_commands.txt
+            echo "📦 Comandos necessários encontrados:"
+            cat required_commands.txt
+            echo ""
+            echo "Total: $(wc -l < required_commands.txt) comandos únicos"
+          else
+            echo "ℹ️ Nenhum comando específico detectado"
+          fi
+      
+      - name: Verificar dependências críticas
+        run: |
+          echo "🔧 Verificando dependências críticas mencionadas nos scripts..."
+          
+          critical_commands=(
+            "hyprctl"
+            "waybar"
+            "brightnessctl"
+            "pamixer"
+            "wal"
+            "swww"
+            "kitty"
+            "rofi"
+            "wofi"
+          )
+          
+          for cmd in "${critical_commands[@]}"; do
+            if grep -rq "$cmd" .config --include="*.sh" 2>/dev/null; then
+              echo "✅ $cmd é usado nos scripts"
+            fi
+          done
+
+  # 3. Teste de Links no README
+  link-check:
+    name: Verificar Links no README
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Verificar links markdown
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'no'
+          use-verbose-mode: 'yes'
+          config-file: '.github/workflows/markdown-link-check-config.json'
+        continue-on-error: true
+      
+      - name: Listar arquivos markdown
+        run: |
+          echo "📝 Arquivos Markdown encontrados:"
+          find . -name "*.md" -type f
+
+  # 4. Teste de Estrutura do Repositório
+  structure-test:
+    name: Validar Estrutura do Repositório
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Verificar arquivos obrigatórios
+        run: |
+          echo "📋 Verificando arquivos obrigatórios..."
+          
+          required_files=(
+            "README.md"
+            "pkglist.txt"
+            "aur_pkglist.txt"
+            ".shellcheckrc"
+          )
+          
+          all_ok=true
+          for file in "${required_files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ $file existe"
+            else
+              echo "❌ Arquivo obrigatório não encontrado: $file"
+              all_ok=false
+            fi
+          done
+          
+          if [ "$all_ok" = false ]; then
+            exit 1
+          fi
+          
+          echo ""
+          echo "✅ Todos os arquivos obrigatórios existem"
+      
+      - name: Verificar diretórios de configuração essenciais
+        run: |
+          echo "📁 Verificando diretórios de configuração..."
+          
+          required_dirs=(
+            ".config/hypr"
+            ".config/fish"
+            ".config/waybar"
+            ".config/kitty"
+            ".github/workflows"
+          )
+          
+          all_ok=true
+          for dir in "${required_dirs[@]}"; do
+            if [ -d "$dir" ]; then
+              file_count=$(find "$dir" -type f | wc -l)
+              echo "✅ $dir existe ($file_count arquivos)"
+            else
+              echo "❌ Diretório não encontrado: $dir"
+              all_ok=false
+            fi
+          done
+          
+          if [ "$all_ok" = false ]; then
+            exit 1
+          fi
+          
+          echo ""
+          echo "✅ Todos os diretórios essenciais existem"
+      
+      - name: Verificar estrutura de scripts
+        run: |
+          echo "🔍 Verificando organização de scripts..."
+          
+          script_dirs=(
+            ".config/hypr/scripts"
+            ".config/waybar/scripts"
+          )
+          
+          for dir in "${script_dirs[@]}"; do
+            if [ -d "$dir" ]; then
+              script_count=$(find "$dir" -name "*.sh" | wc -l)
+              echo "✅ $dir contém $script_count scripts"
+            fi
+          done
+
+  # 5. Teste de Segurança Básica
+  security-check:
+    name: Verificar Problemas de Segurança
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Procurar credenciais hardcoded
+        run: |
+          echo "🔒 Procurando por credenciais ou tokens hardcoded..."
+          
+          # Padrões perigosos
+          if grep -ri "password\s*=\|api_key\s*=\|secret\s*=\|token\s*=" \
+            --include="*.sh" \
+            --include="*.conf" \
+            --include="*.ini" \
+            --exclude-dir=".git" \
+            . 2>/dev/null; then
+            echo "⚠️ Possíveis credenciais encontradas no código!"
+            echo "Revise os arquivos acima para garantir que não há informações sensíveis"
+          else
+            echo "✅ Nenhuma credencial hardcoded detectada"
+          fi
+      
+      - name: Verificar permissões de scripts
+        run: |
+          echo "🔑 Verificando permissões de scripts..."
+          
+          scripts_without_exec=$(find .config -name "*.sh" ! -perm /111 2>/dev/null || true)
+          
+          if [ -n "$scripts_without_exec" ]; then
+            echo "⚠️ Scripts sem permissão de execução encontrados:"
+            echo "$scripts_without_exec"
+            echo ""
+            echo "Para corrigir, execute:"
+            echo "chmod +x <script>"
+          else
+            echo "✅ Todos os scripts têm permissão de execução adequada"
+          fi
+      
+      - name: Verificar uso de sudo/privileged commands
+        run: |
+          echo "⚡ Verificando uso de comandos privilegiados..."
+          
+          sudo_usage=$(grep -rn "sudo\|su -\|pkexec" .config --include="*.sh" 2>/dev/null || true)
+          
+          if [ -n "$sudo_usage" ]; then
+            echo "ℹ️ Comandos privilegiados encontrados:"
+            echo "$sudo_usage"
+            echo ""
+            echo "Certifique-se de que o uso de sudo é necessário e seguro"
+          else
+            echo "✅ Nenhum comando privilegiado detectado"
+          fi
+
+  # 6. Teste de Qualidade de Código
+  code-quality:
+    name: Verificar Qualidade do Código
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Contar linhas de código
+        run: |
+          echo "📊 Estatísticas de código:"
+          echo ""
+          
+          echo "Scripts Shell:"
+          find .config -name "*.sh" -exec wc -l {} + | tail -1 || echo "0 total"
+          
+          echo ""
+          echo "Arquivos Fish:"
+          find . -name "*.fish" -exec wc -l {} + 2>/dev/null | tail -1 || echo "0 total"
+          
+          echo ""
+          echo "Arquivos Lua:"
+          find . -name "*.lua" -exec wc -l {} + 2>/dev/null | tail -1 || echo "0 total"
+          
+          echo ""
+          echo "Arquivos de configuração:"
+          find .config -type f \( -name "*.conf" -o -name "*.ini" -o -name "*.toml" \) -exec wc -l {} + 2>/dev/null | tail -1 || echo "0 total"
+      
+      - name: Verificar documentação nos scripts
+        run: |
+          echo "📝 Verificando documentação em scripts..."
+          
+          scripts_without_comments=0
+          total_scripts=0
+          
+          while IFS= read -r script; do
+            total_scripts=$((total_scripts + 1))
+            if ! head -10 "$script" | grep -q "^#.*Description\|^# "; then
+              scripts_without_comments=$((scripts_without_comments + 1))
+              echo "⚠️  $script pode precisar de mais documentação"
+            fi
+          done < <(find .config -name "*.sh")
+          
+          if [ $total_scripts -gt 0 ]; then
+            documented=$((total_scripts - scripts_without_comments))
+            percentage=$((documented * 100 / total_scripts))
+            echo ""
+            echo "📈 $documented de $total_scripts scripts ($percentage%) têm documentação"
+          fi
+      
+      - name: Verificar TODOs e FIXMEs
+        run: |
+          echo "📌 Procurando TODOs e FIXMEs no código..."
+          
+          todos=$(grep -rn "TODO\|FIXME\|XXX\|HACK" .config --include="*.sh" --include="*.fish" 2>/dev/null || true)
+          
+          if [ -n "$todos" ]; then
+            echo "ℹ️ Itens pendentes encontrados:"
+            echo "$todos"
+          else
+            echo "✅ Nenhum TODO ou FIXME pendente"
+          fi
+
+  # 7. Resumo dos Testes
+  test-summary:
+    name: Resumo dos Testes
+    runs-on: ubuntu-latest
+    needs: [syntax-check, dependency-check, structure-test, security-check, code-quality]
+    if: always()
+    
+    steps:
+      - name: Gerar resumo
+        run: |
+          echo "# 🎯 Resumo dos Testes Automatizados" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Sintaxe de Arquivos | ${{ needs.syntax-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Dependências | ${{ needs.dependency-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Estrutura | ${{ needs.structure-test.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Segurança | ${{ needs.security-check.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Qualidade | ${{ needs.code-quality.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Testes concluídos em $(date)" >> $GITHUB_STEP_SUMMARY
