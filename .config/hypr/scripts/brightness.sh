@@ -1,10 +1,28 @@
 #!/bin/bash
+#
+# brightness.sh - Controle de Brilho da Tela
+#
+# Descrição:
+#   Ajusta o brilho da tela e envia notificação visual do nível atual.
+#   Usa brightnessctl para controle de hardware e notify-send para feedback.
+#
+# Uso:
+#   ./brightness.sh up    # Aumenta 5%
+#   ./brightness.sh down  # Diminui 5%
+#
+# Dependências:
+#   - brightnessctl (controle de brilho)
+#   - swaync ou outro daemon de notificação
+#
 
-# O argumento pode ser "up" ou "down"
+# Argumento: "up" ou "down"
 ACTION=$1
-# O passo de mudança (ex: 5%)
+
+# Incremento/decremento em porcentagem
 STEP=5
 
+# change_brightness()
+# Altera o brilho usando brightnessctl
 change_brightness() {
   if [ "$ACTION" == "up" ]; then
     brightnessctl set "${STEP}%+" -q
@@ -13,15 +31,20 @@ change_brightness() {
   fi
 }
 
+# send_notification()
+# Envia notificação com barra de progresso mostrando nível de brilho
+# Usa hint 'synchronous' para substituir notificação anterior
 send_notification() {
-  # Pega o brilho atual e o máximo para calcular a porcentagem
+  # Calcula porcentagem atual do brilho
   CURRENT_BRIGHTNESS=$(brightnessctl get)
   MAX_BRIGHTNESS=$(brightnessctl max)
   PERCENTAGE=$((CURRENT_BRIGHTNESS * 100 / MAX_BRIGHTNESS))
 
-  # LINHA CORRIGIDA:
-  # Usamos o hint "synchronous" para dizer ao swaync para substituir a notificação
-  # com o mesmo nome. O `-a` define esse nome.
+  # Envia notificação com barra de progresso
+  # -a: nome da aplicação (para agrupamento)
+  # -h int:value: valor para barra de progresso
+  # -h string:synchronous: substitui notificação com mesmo ID
+  # -u low: prioridade baixa
   notify-send -a "Brightness" "Brilho ${PERCENTAGE}%" \
     -h int:value:"${PERCENTAGE}" \
     -h string:synchronous:"brightness" \

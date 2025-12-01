@@ -1,10 +1,29 @@
 #!/bin/bash
+#
+# volume.sh - Controle de Volume do Sistema
+#
+# Descrição:
+#   Ajusta o volume do sistema usando pamixer e envia notificação
+#   visual do nível atual ou estado de mute.
+#
+# Uso:
+#   ./volume.sh up    # Aumenta 5% e desmuta
+#   ./volume.sh down  # Diminui 5%
+#   ./volume.sh mute  # Alterna mute/unmute
+#
+# Dependências:
+#   - pamixer (controle de volume PulseAudio/PipeWire)
+#   - swaync ou outro daemon de notificação
+#
 
-# O argumento pode ser "up", "down" ou "mute"
+# Argumento: "up", "down" ou "mute"
 ACTION=$1
-# O passo de mudança (ex: 5%)
+
+# Incremento/decremento em porcentagem
 STEP=5
 
+# change_volume()
+# Altera o volume do sistema usando pamixer
 change_volume() {
   case "$ACTION" in
   up)
@@ -20,18 +39,20 @@ change_volume() {
   esac
 }
 
+# send_notification()
+# Envia notificação com barra de progresso ou ícone de mute
+# Adapta a mensagem baseado no estado atual do áudio
 send_notification() {
   IS_MUTED=$(pamixer --get-mute)
 
   if [ "$IS_MUTED" = true ]; then
-    # Notificação para o estado mudo
+    # Notificação quando áudio está mutado
     notify-send -a "Volume" "Mutado" \
       -i "audio-volume-muted" \
       -h string:synchronous:"volume" \
       -u low
   else
-    # LINHA CORRIGIDA:
-    # Mesma lógica do brilho, com um nome de app e tag diferentes.
+    # Notificação normal com barra de progresso
     PERCENTAGE=$(pamixer --get-volume)
     notify-send -a "Volume" "Volume ${PERCENTAGE}%" \
       -h int:value:"${PERCENTAGE}" \

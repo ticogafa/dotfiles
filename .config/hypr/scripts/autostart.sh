@@ -1,36 +1,58 @@
 #!/usr/bin/env bash
+#
+# autostart.sh - Script de Inicialização do Hyprland
+#
+# Descrição:
+#   Executado automaticamente ao iniciar o Hyprland. Gerencia
+#   a inicialização de serviços essenciais e aplicações de segundo plano.
+#   Garante que não haja instâncias duplicadas rodando.
+#
+# Uso:
+#   Chamado automaticamente por ~/.config/hypr/hyprland.conf
+#   na linha: exec-once = ~/.config/hypr/scripts/autostart.sh
+#
+# Dependências:
+#   - waybar (barra de status)
+#   - hypridle (gerenciador de idle)
+#   - swww (wallpaper daemon)
+#   - cliphist + wl-clipboard (histórico de clipboard)
+#   - ollama (servidor LLM - opcional)
+#   - swaync (centro de notificações)
+#
 
-# Mata processos que podem estar "presos"
+# === Limpeza de Processos Existentes ===
+# Encerra instâncias anteriores para evitar duplicatas
 killall -q waybar
 killall -q hypridle
 killall -q swww-daemon
 killall -q cliphist
 killall -q ollama
-pkill -f "power-manager.sh" # Usa pkill para encontrar o script pelo nome
+pkill -f "power-manager.sh"
 
-# Aguarda um pouco para garantir que os processos foram encerrados
+# Aguarda término completo dos processos
 sleep 0.5
 
-# --- Inicia os programas em background ---
+# === Inicialização de Serviços ===
 
-# Barra de status e idle daemon
-waybar &
-hypridle &
+# Interface do usuário
+waybar &          # Barra de status
+hypridle &        # Gerenciador de idle (será controlado pelo power-manager)
 
-# Wallpaper
+# Sistema de wallpaper
 swww-daemon &
-sleep 1 # Dê um segundo para o daemon iniciar antes de carregar a imagem
-swww init &
+sleep 1           # Aguarda daemon inicializar
+swww init &       # Carrega wallpaper padrão
 
-# Histórico da área de transferência
+# Gerenciamento de clipboard
+# Monitora e armazena histórico de texto e imagens
 wl-paste --type text --watch cliphist store &
 wl-paste --type image --watch cliphist store &
 
-# Seu script de gerenciamento de energia
+# Gerenciamento inteligente de energia
 ~/.config/hypr/scripts/power-manager.sh &
 
-# Servidor Ollama
+# Servidor de IA local (Ollama)
 ollama serve &
 
-# Swaync notification center
+# Centro de notificações
 swaync &
