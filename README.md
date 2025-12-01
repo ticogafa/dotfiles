@@ -148,7 +148,6 @@ A configuração completa está em `.config/hypr/configurations/keybindings.conf
 | ------------------- | ---------------------------------------------- |
 | `SUPER + ←/→/↑/↓`   | Mover foco entre janelas                       |
 | `SUPER + SHIFT + ←/→/↑/↓` | Mover janela                             |
-| `SUPER + ALT + ←/→/↑/↓` | Redimensionar janela                       |
 | `SUPER + F`         | Alternar fullscreen                            |
 | `SUPER + V`         | Alternar modo floating                         |
 
