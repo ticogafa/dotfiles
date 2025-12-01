@@ -1,4 +1,4 @@
-name: Generate Preview
+name: Update Repository Statistics
 
 # Workflow para gerar previews e documentação automática
 on:
