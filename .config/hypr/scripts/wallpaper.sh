@@ -74,6 +74,7 @@ main() {
   pkill -USR2 cava 2>/dev/null
   
   # Backup do wallpaper atual
-  source ~/.cache/wal/colors.sh && cp -r $wallpaper ~/wallpapers/pywallpaper.jpg
+  # shellcheck source=/dev/null
+  source ~/.cache/wal/colors.sh && cp -r "$wallpaper" ~/wallpapers/pywallpaper.jpg
 }
 main

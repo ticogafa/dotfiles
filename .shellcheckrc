@@ -1,0 +1,15 @@
+# ShellCheck Configuration
+# https://github.com/koalaman/shellcheck/wiki/Directive
+
+# Ignora warnings sobre variáveis do pywal que são definidas dinamicamente
+disable=SC2154
+
+# Ignora warnings sobre source de arquivos dinâmicos
+disable=SC1090
+
+# Ignora warnings sobre variáveis que parecem não usadas mas são exportadas
+disable=SC2034
+
+# Adiciona diretórios para exclusão
+# Ranger scope.sh é um arquivo de terceiros
+exclude=.config/ranger/scope.sh

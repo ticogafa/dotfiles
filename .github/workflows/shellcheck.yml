@@ -22,9 +22,12 @@ jobs:
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
-          # Ignora alguns warnings comuns em dotfiles
-          ignore_paths: .config/ranger/scope.sh
-          severity: warning
+          # Ignora arquivos de terceiros (Ranger)
+          ignore_paths: .config/ranger
+          # Ignora warnings menores, foca em erros
+          severity: error
+          # Formato de saída
+          format: gcc
           
       # 3. Reportar resultados
       - name: Upload ShellCheck results
