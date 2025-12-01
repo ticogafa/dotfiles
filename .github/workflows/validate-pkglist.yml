@@ -2,7 +2,9 @@ name: Validate Package Lists
 
 # Executa quando há mudanças nas listas de pacotes
 on:
+  workflow_dispatch:  # Permite execução manual
   push:
+    branches: [ main ]
     paths:
       - 'pkglist.txt'
       - 'aur_pkglist.txt'

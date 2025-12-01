@@ -2,6 +2,7 @@ name: ShellCheck
 
 # Executa em push e pull requests
 on:
+  workflow_dispatch:  # Permite execução manual
   push:
     branches: [ main, dev ]
   pull_request:
@@ -28,7 +29,7 @@ jobs:
       # 3. Reportar resultados
       - name: Upload ShellCheck results
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: shellcheck-results
           path: shellcheck.log
