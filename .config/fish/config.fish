@@ -11,7 +11,7 @@ set -x PATH $JAVA_HOME/bin $PATH
 set -x EDITOR nvim
 
 # Aliases
-alias ls "eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias ls "eza --color=always --long --git --icons=always"
 alias grep "rg --color=auto"
 alias inv "nvim (fzf -m --preview=\"bat --color=always {}\")"
 alias cls "clear; and fastfetch"
@@ -24,5 +24,4 @@ alias cbonsai "cbonsai -S"
 alias ping "gping -4"
 alias scan "sudo lynis audit system"
 alias music "yt-dlp -x --audio-format mp3 -o '~/Músicas/%(title)s.%(ext)s' --no-playlist"
-alias h Hyprland
 fish_add_path $HOME/.local/bin
