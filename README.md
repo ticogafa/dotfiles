@@ -154,7 +154,6 @@ A configuração completa está em `.config/hypr/configurations/keybindings.conf
 ## 📸 Screenshots
 
 ![Fish Terminal](screenshots/fish.png)
-![Waybar](screenshots/waybar.png)
 ![Neovim](screenshots/nvim-1.png)
 
 ## 🎥 Vídeo de Demonstração
