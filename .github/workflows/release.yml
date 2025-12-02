@@ -1,0 +1,210 @@
+name: Create Release
+
+# Workflow para criar releases automaticamente
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger em tags no formato v1.0.0, v2.1.3, etc
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versão da release (ex: v1.0.0)'
+        required: true
+        type: string
+      prerelease:
+        description: 'Marcar como pre-release?'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    name: Criar Release
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Necessário para changelog
+      
+      - name: Determinar versão
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="${GITHUB_REF#refs/tags/}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Versão: $VERSION"
+      
+      - name: Gerar estatísticas
+        id: stats
+        run: |
+          # Conta scripts
+          SCRIPT_COUNT=$(find .config -name "*.sh" | wc -l)
+          
+          # Conta pacotes
+          PKG_COUNT=$(wc -l < pkglist.txt)
+          AUR_COUNT=$(wc -l < aur_pkglist.txt)
+          TOTAL_PKG=$((PKG_COUNT + AUR_COUNT))
+          
+          # Conta linhas de código
+          TOTAL_LINES=$(find .config -name "*.sh" -o -name "*.lua" -o -name "*.fish" 2>/dev/null | xargs wc -l 2>/dev/null | tail -1 | awk '{print $1}' || echo "0")
+          
+          # Conta workflows
+          WORKFLOW_COUNT=$(find .github/workflows -name "*.yml" | wc -l)
+          
+          echo "scripts=$SCRIPT_COUNT" >> $GITHUB_OUTPUT
+          echo "packages=$TOTAL_PKG" >> $GITHUB_OUTPUT
+          echo "pkg_official=$PKG_COUNT" >> $GITHUB_OUTPUT
+          echo "pkg_aur=$AUR_COUNT" >> $GITHUB_OUTPUT
+          echo "lines=$TOTAL_LINES" >> $GITHUB_OUTPUT
+          echo "workflows=$WORKFLOW_COUNT" >> $GITHUB_OUTPUT
+      
+      - name: Extrair changelog da versão
+        id: changelog
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          VERSION_NUMBER="${VERSION#v}"
+          
+          if [ -f CHANGELOG.md ]; then
+            # Extrai a seção da versão do CHANGELOG.md
+            sed -n "/## \[$VERSION_NUMBER\]/,/## \[/p" CHANGELOG.md | sed '$d' > release_notes.md
+            
+            # Se não encontrou, usa changelog genérico
+            if [ ! -s release_notes.md ]; then
+              echo "Veja CHANGELOG.md para detalhes completos." > release_notes.md
+            fi
+          else
+            echo "Release $VERSION" > release_notes.md
+          fi
+          
+          echo "Release notes gerado"
+      
+      - name: Criar arquivo de release
+        run: |
+          cat > RELEASE_INFO.md << 'EOF'
+          ## 📦 Instalação
+          
+          ### Instalação Rápida
+          ```bash
+          git clone https://github.com/ticogafa/dotfiles.git ~/.dotfiles
+          cd ~/.dotfiles
+          ./install.sh  # Se você tiver um script de instalação
+          ```
+          
+          ### Instalação Manual
+          ```bash
+          # 1. Clone o repositório
+          git clone --branch ${{ steps.version.outputs.version }} https://github.com/ticogafa/dotfiles.git ~/.dotfiles
+          
+          # 2. Instale os pacotes
+          sudo pacman -S --needed - < pkglist.txt
+          yay -S --needed - < aur_pkglist.txt
+          
+          # 3. Crie os symlinks (ajuste conforme necessário)
+          stow -d ~/.dotfiles -t ~ .config
+          ```
+          
+          ## 📊 Estatísticas desta Release
+          
+          - 🐚 **Scripts Shell**: ${{ steps.stats.outputs.scripts }}
+          - 📦 **Pacotes Oficiais**: ${{ steps.stats.outputs.pkg_official }}
+          - 🔧 **Pacotes AUR**: ${{ steps.stats.outputs.pkg_aur }}
+          - 💾 **Total de Pacotes**: ${{ steps.stats.outputs.packages }}
+          - 🔄 **GitHub Actions**: ${{ steps.stats.outputs.workflows }}
+          - 📄 **Linhas de Código**: ${{ steps.stats.outputs.lines }}
+          
+          ## 🛠️ Tecnologias Incluídas
+          
+          - **Window Manager**: Hyprland (Wayland)
+          - **Status Bar**: Waybar
+          - **Terminal**: Kitty
+          - **Shell**: Fish + Starship
+          - **Editor**: Neovim
+          - **Launcher**: Wofi/Rofi
+          - **Notifications**: SwayNC
+          - **Theme Engine**: Pywal16
+          - **Screenshots**: Hyprshot/Grim
+          
+          ## ✅ Requisitos
+          
+          - **SO**: Arch Linux (ou derivados)
+          - **Display Server**: Wayland
+          - **GPU**: AMD/NVIDIA/Intel com suporte a Vulkan
+          
+          ## 📝 Notas Importantes
+          
+          - Faça backup de suas configurações existentes antes de instalar
+          - Revise os scripts antes de executá-los
+          - Ajuste keybindings e configurações conforme sua preferência
+          - Alguns pacotes podem não estar disponíveis em todas as regiões
+          
+          ## 🔗 Links Úteis
+          
+          - [Documentação Completa](https://github.com/ticogafa/dotfiles/blob/main/README.md)
+          - [Changelog](https://github.com/ticogafa/dotfiles/blob/main/CHANGELOG.md)
+          - [Reportar Bug](https://github.com/ticogafa/dotfiles/issues/new?template=bug_report.yml)
+          - [Sugerir Feature](https://github.com/ticogafa/dotfiles/issues/new?template=feature_request.yml)
+          
+          ---
+          
+          EOF
+          
+          # Combina release notes com info adicional
+          cat release_notes.md RELEASE_INFO.md > final_release_notes.md
+      
+      - name: Criar arquivos de release
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          
+          # Cria arquivo compactado com as configurações
+          mkdir -p release_files
+          
+          # Copia arquivos importantes
+          cp -r .config release_files/
+          cp pkglist.txt aur_pkglist.txt release_files/
+          cp README.md CHANGELOG.md release_files/ 2>/dev/null || true
+          cp .shellcheckrc release_files/ 2>/dev/null || true
+          
+          # Cria tarball
+          tar -czf dotfiles-${VERSION}.tar.gz -C release_files .
+          
+          # Cria zip também
+          cd release_files && zip -r ../dotfiles-${VERSION}.zip . && cd ..
+          
+          # Cria checksums
+          sha256sum dotfiles-${VERSION}.tar.gz > dotfiles-${VERSION}.tar.gz.sha256
+          sha256sum dotfiles-${VERSION}.zip > dotfiles-${VERSION}.zip.sha256
+          
+          echo "📦 Arquivos criados:"
+          ls -lh dotfiles-${VERSION}*
+      
+      - name: Criar GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Release ${{ steps.version.outputs.version }}
+          body_path: final_release_notes.md
+          draft: false
+          prerelease: ${{ inputs.prerelease || false }}
+          files: |
+            dotfiles-${{ steps.version.outputs.version }}.tar.gz
+            dotfiles-${{ steps.version.outputs.version }}.tar.gz.sha256
+            dotfiles-${{ steps.version.outputs.version }}.zip
+            dotfiles-${{ steps.version.outputs.version }}.zip.sha256
+            pkglist.txt
+            aur_pkglist.txt
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Notificar sucesso
+        run: |
+          echo "✅ Release ${{ steps.version.outputs.version }} criada com sucesso!"
+          echo "🔗 https://github.com/ticogafa/dotfiles/releases/tag/${{ steps.version.outputs.version }}"
