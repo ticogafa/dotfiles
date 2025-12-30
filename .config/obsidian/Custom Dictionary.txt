@@ -1,0 +1,5 @@
+DSS
+PCI
+pentest
+scanner
+checksum_v1 = 0aa2e3b12059f21cbbaeacc0e70b30d9
