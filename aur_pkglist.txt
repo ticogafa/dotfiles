@@ -11,8 +11,8 @@ catppuccin-gtk-theme-mocha
 cbonsai
 feroxbuster
 gdbuspp
-gtk2
 gtk-engine-murrine
+gtk2
 libastal-4-git
 libastal-git
 libastal-io-git
