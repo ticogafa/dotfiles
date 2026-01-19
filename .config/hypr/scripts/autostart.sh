@@ -14,8 +14,8 @@ sleep 0.5
 # --- Inicia os programas em background ---
 
 # Barra de status e idle daemon
-waybar &
-hypridle &
+# waybar &
+# hypridle &
 
 # Wallpaper
 swww-daemon &
@@ -29,10 +29,7 @@ wl-paste --type image --watch cliphist store &
 # Seu script de gerenciamento de energia
 ~/.config/hypr/scripts/power-manager.sh &
 
-# Servidor Ollama
-ollama serve &
-
 # Swaync notification center
-swaync &
-
+# swaync &
+dms run
 kitty --title update_sys --hold yay &

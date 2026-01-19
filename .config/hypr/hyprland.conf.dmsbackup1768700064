@@ -224,4 +224,3 @@ layerrule = blur on, match:class wofi
 layerrule = ignore_alpha 0.5, match:class wofi
 layerrule = blur on, match:class waybar
 layerrule = ignore_alpha 0.5, match:class waybar
-source = ./dms/binds.conf
