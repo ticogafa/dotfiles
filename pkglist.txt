@@ -119,8 +119,8 @@ ncdu
 nemo
 neovim
 net-tools
-networkmanager
 network-manager-applet
+networkmanager
 nmap
 nodejs
 npm
