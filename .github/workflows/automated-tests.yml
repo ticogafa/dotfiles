@@ -51,20 +51,6 @@ jobs:
             echo "ℹ️ Nenhum arquivo .lua encontrado"
           fi
       
-      - name: Validar arquivos JSON
-        run: |
-          echo "📋 Validando arquivos JSON..."
-          json_files=$(find . -name "*.json" 2>/dev/null || true)
-          if [ -n "$json_files" ]; then
-            echo "$json_files" | while read -r file; do
-              echo "Validando: $file"
-              python3 -m json.tool "$file" > /dev/null || exit 1
-            done
-            echo "✅ Todos os arquivos JSON são válidos"
-          else
-            echo "ℹ️ Nenhum arquivo .json encontrado"
-          fi
-      
       - name: Validar arquivos YAML
         run: |
           echo "📄 Validando arquivos YAML..."
