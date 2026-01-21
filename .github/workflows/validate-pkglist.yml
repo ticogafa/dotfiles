@@ -62,6 +62,4 @@ jobs:
       - name: Count packages
         run: |
           echo "📊 Estatísticas de pacotes:"
-          echo "- Pacotes oficiais: $(wc -l < pkglist.txt)"
-          echo "- Pacotes AUR: $(wc -l < aur_pkglist.txt)"
-          echo "- Total: $(($(wc -l < pkglist.txt) + $(wc -l < aur_pkglist.txt)))"
+          echo "- Total: $(($(wc -l < pkglist.txt)))"
