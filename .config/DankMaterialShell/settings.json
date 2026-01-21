@@ -24,7 +24,7 @@
   "showSeconds": false,
   "useFahrenheit": false,
   "nightModeEnabled": false,
-  "animationSpeed": 1,
+  "animationSpeed": 2,
   "customAnimationDuration": 500,
   "wallpaperFillMode": "Fill",
   "blurredWallpaperLayer": false,
@@ -107,10 +107,10 @@
   ],
   "showWorkspaceIndex": false,
   "showWorkspaceName": false,
-  "showWorkspacePadding": false,
+  "showWorkspacePadding": true,
   "workspaceScrolling": false,
   "showWorkspaceApps": true,
-  "maxWorkspaceIcons": 3,
+  "maxWorkspaceIcons": 5,
   "groupWorkspaceApps": true,
   "workspaceFollowFocus": true,
   "showOccupiedWorkspacesOnly": true,
@@ -133,7 +133,33 @@
   "keyboardLayoutNameCompactMode": false,
   "runningAppsCurrentWorkspace": false,
   "runningAppsGroupByApp": false,
-  "appIdSubstitutions": [],
+  "appIdSubstitutions": [
+    {
+      "pattern": "Spotify",
+      "replacement": "spotify",
+      "type": "exact"
+    },
+    {
+      "pattern": "beepertexts",
+      "replacement": "beeper",
+      "type": "exact"
+    },
+    {
+      "pattern": "home assistant desktop",
+      "replacement": "homeassistant-desktop",
+      "type": "exact"
+    },
+    {
+      "pattern": "com.transmissionbt.transmission",
+      "replacement": "transmission-gtk",
+      "type": "contains"
+    },
+    {
+      "pattern": "^steam_app_(\\d+)$",
+      "replacement": "steam_icon_$1",
+      "type": "regex"
+    }
+  ],
   "centeringMode": "index",
   "clockDateFormat": "",
   "lockDateFormat": "",
@@ -146,12 +172,12 @@
   "niriOverviewOverlayEnabled": true,
   "useAutoLocation": false,
   "weatherEnabled": true,
-  "networkPreference": "auto",
+  "networkPreference": "ethernet",
   "vpnLastConnected": "",
   "iconTheme": "System Default",
   "cursorSettings": {
-    "theme": "System Default",
-    "size": 24,
+    "theme": "Bibata-Original-Classic",
+    "size": 23,
     "niri": {
       "hideWhenTyping": false,
       "hideAfterInactiveMs": 0
@@ -165,9 +191,9 @@
       "cursorHideTimeout": 0
     }
   },
-  "launcherLogoMode": "apps",
+  "launcherLogoMode": "os",
   "launcherLogoCustomPath": "",
-  "launcherLogoColorOverride": "",
+  "launcherLogoColorOverride": "primary",
   "launcherLogoColorInvertOnMode": false,
   "launcherLogoBrightness": 0.5,
   "launcherLogoContrast": 1,
@@ -215,7 +241,7 @@
   "syncModeWithPortal": true,
   "terminalsAlwaysDark": false,
   "runDmsMatugenTemplates": true,
-  "matugenTemplateGtk": true,
+  "matugenTemplateGtk": false,
   "matugenTemplateNiri": false,
   "matugenTemplateHyprland": true,
   "matugenTemplateMangowc": false,
@@ -226,7 +252,7 @@
   "matugenTemplateZenBrowser": true,
   "matugenTemplateVesktop": true,
   "matugenTemplateEquibop": true,
-  "matugenTemplateGhostty": true,
+  "matugenTemplateGhostty": false,
   "matugenTemplateKitty": true,
   "matugenTemplateFoot": true,
   "matugenTemplateAlacritty": true,
@@ -240,9 +266,9 @@
   "dockGroupByApp": true,
   "dockOpenOnOverview": false,
   "dockPosition": 1,
-  "dockSpacing": 4,
-  "dockBottomGap": 0,
-  "dockMargin": 0,
+  "dockSpacing": 5,
+  "dockBottomGap": -15,
+  "dockMargin": 5,
   "dockIconSize": 40,
   "dockIndicatorStyle": "circle",
   "dockBorderEnabled": false,
@@ -257,7 +283,7 @@
   "lockScreenShowTime": true,
   "lockScreenShowDate": true,
   "lockScreenShowProfileImage": true,
-  "lockScreenShowPasswordField": true,
+  "lockScreenShowPasswordField": false,
   "enableFprint": false,
   "maxFprintTries": 15,
   "lockScreenActiveMonitor": "all",
@@ -275,7 +301,7 @@
   "notificationHistorySaveLow": true,
   "notificationHistorySaveNormal": true,
   "notificationHistorySaveCritical": true,
-  "osdAlwaysShowValue": false,
+  "osdAlwaysShowValue": true,
   "osdPosition": 5,
   "osdVolumeEnabled": true,
   "osdMediaVolumeEnabled": true,
@@ -296,7 +322,7 @@
     "restart"
   ],
   "powerMenuDefaultAction": "logout",
-  "powerMenuGridLayout": false,
+  "powerMenuGridLayout": true,
   "customPowerActionLock": "",
   "customPowerActionLogout": "",
   "customPowerActionSuspend": "",
@@ -304,8 +330,8 @@
   "customPowerActionReboot": "",
   "customPowerActionPowerOff": "",
   "updaterHideWidget": false,
-  "updaterUseCustomCommand": false,
-  "updaterCustomCommand": "",
+  "updaterUseCustomCommand": true,
+  "updaterCustomCommand": "yay",
   "updaterTerminalAdditionalParams": "",
   "displayNameMode": "system",
   "screenPreferences": {
@@ -329,11 +355,23 @@
       "leftWidgets": [
         "launcherButton",
         "workspaceSwitcher",
-        "focusedWindow"
+        {
+          "id": "focusedWindow",
+          "enabled": true,
+          "focusedWindowCompactMode": false
+        }
       ],
       "centerWidgets": [
-        "music",
-        "clock",
+        {
+          "id": "music",
+          "enabled": true,
+          "mediaSize": 1
+        },
+        {
+          "id": "clock",
+          "enabled": true,
+          "clockCompactMode": false
+        },
         "weather"
       ],
       "rightWidgets": [
@@ -343,7 +381,11 @@
         "memUsage",
         "notificationButton",
         "battery",
-        "controlCenterButton"
+        "controlCenterButton",
+        {
+          "id": "systemUpdate",
+          "enabled": true
+        }
       ],
       "spacing": 4,
       "innerPadding": 4,

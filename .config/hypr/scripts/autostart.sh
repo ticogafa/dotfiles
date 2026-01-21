@@ -18,9 +18,9 @@ sleep 0.5
 # hypridle &
 
 # Wallpaper
-swww-daemon &
-sleep 1 # Dê um segundo para o daemon iniciar antes de carregar a imagem
-swww init &
+# swww-daemon &
+# sleep 1 # Dê um segundo para o daemon iniciar antes de carregar a imagem
+# swww init &
 
 # Histórico da área de transferência
 wl-paste --type text --watch cliphist store &
@@ -32,4 +32,4 @@ wl-paste --type image --watch cliphist store &
 # Swaync notification center
 # swaync &
 dms run
-kitty --title update_sys --hold yay &
+# kitty --title update_sys --hold yay &

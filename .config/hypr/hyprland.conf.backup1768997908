@@ -225,7 +225,3 @@ layerrule = ignore_alpha 0.5, match:class wofi
 layerrule = blur on, match:class waybar
 layerrule = ignore_alpha 0.5, match:class waybar
 source = ./dms/binds.conf
-
-source = ./dms/outputs.conf
-
-source = ./dms/cursor.conf
