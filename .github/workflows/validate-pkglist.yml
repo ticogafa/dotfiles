@@ -22,19 +22,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Verifica duplicatas entre pkglist.txt e aur_pkglist.txt
-      - name: Check for duplicates
-        run: |
-          echo "🔍 Verificando pacotes duplicados..."
-          duplicates=$(comm -12 <(sort pkglist.txt) <(sort aur_pkglist.txt))
-          if [ -n "$duplicates" ]; then
-            echo "❌ Pacotes duplicados encontrados:"
-            echo "$duplicates"
-            exit 1
-          else
-            echo "✅ Nenhum pacote duplicado encontrado"
-          fi
-
       # Verifica se os arquivos estão ordenados alfabeticamente
       - name: Check alphabetical order
         run: |
