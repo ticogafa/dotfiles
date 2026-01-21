@@ -7,6 +7,7 @@ Meus dotfiles pessoais para Arch Linux, com foco em um ambiente produtivo, perso
 ## ✨ Principais Ferramentas e Configurações
 
 ### 🎨 Interface
+
 - **Window Manager**: [Hyprland](https://hyprland.org/) - Compositor Wayland com animações fluidas
 - **Barra de Status**: [Waybar](https://github.com/Alexays/Waybar) - Altamente customizável
 - **Launcher de Aplicativos**: [Wofi](https://hg.sr.ht/~scoopta/wofi) - Menu rápido e leve
@@ -16,6 +17,7 @@ Meus dotfiles pessoais para Arch Linux, com foco em um ambiente produtivo, perso
 - **Wallpaper Manager**: Waypaper com integração Pywal
 
 ### 💻 Desenvolvimento
+
 - **Terminal**: [Kitty](https://sw.kovidgoyal.net/kitty/) - GPU-accelerated
 - **Shell**: [Fish](https://fishshell.com/) com [Starship](https://starship.rs/) prompt
 - **Editor**: [Neovim](https://neovim.io/) com [LazyVim](http://www.lazyvim.org/)
@@ -23,6 +25,7 @@ Meus dotfiles pessoais para Arch Linux, com foco em um ambiente produtivo, perso
 - **Container**: Docker e Docker Compose
 
 ### 🛠️ Utilitários
+
 - **Gerenciador de Arquivos**: [Nemo](https://github.com/linuxmint/nemo) e Ranger
 - **Visualizador de Sistema**: btop, fastfetch
 - **Gerenciador de Clipboard**: cliphist
@@ -46,17 +49,19 @@ Meus dotfiles pessoais para Arch Linux, com foco em um ambiente produtivo, perso
 ### Método 1: Instalação Automatizada (Recomendado)
 
 1. **Clone o repositório:**
+
    ```bash
    git clone https://github.com/ticogafa/dotfiles.git ~/.dotfiles
    cd ~/.dotfiles
    ```
 
 2. **Execute o script de instalação:**
+
    ```bash
    chmod +x install.sh
    ./install.sh
    ```
-   
+
    O script irá:
    - Instalar dependências (pacman e AUR)
    - Criar backups das configurações existentes
@@ -66,12 +71,14 @@ Meus dotfiles pessoais para Arch Linux, com foco em um ambiente produtivo, perso
 ### Método 2: Instalação Manual
 
 1. **Clone o repositório:**
+
    ```bash
    git clone https://github.com/ticogafa/dotfiles.git ~/.dotfiles
    cd ~/.dotfiles
    ```
 
 2. **Instale as dependências:**
+
    ```bash
    # Instalar pacotes dos repositórios oficiais
    sudo pacman -S --needed - < pkglist.txt
@@ -85,6 +92,7 @@ Meus dotfiles pessoais para Arch Linux, com foco em um ambiente produtivo, perso
    ```
 
 3. **Crie os links simbólicos:**
+
    ```bash
    # Faça backup das suas configurações atuais
    mkdir -p ~/backup-configs
@@ -98,6 +106,7 @@ Meus dotfiles pessoais para Arch Linux, com foco em um ambiente produtivo, perso
    ```
 
 4. **Configure o pacman (opcional):**
+
    ```bash
    sudo cp ~/.dotfiles/pacman.conf /etc/pacman.conf
    ```
@@ -190,6 +199,7 @@ dotfiles/
 ### Alterar Terminal
 
 Edite `~/.config/hypr/configurations/keybindings.conf` e modifique:
+
 ```bash
 bind = $mainMod, Q, exec, kitty  # Substitua por seu terminal preferido
 ```
@@ -197,6 +207,7 @@ bind = $mainMod, Q, exec, kitty  # Substitua por seu terminal preferido
 ### Alterar Tema do GTK
 
 Use `nwg-look` (incluído) para escolher temas GTK:
+
 ```bash
 nwg-look
 ```
@@ -208,24 +219,31 @@ Coloque seus scripts em `~/.config/hypr/scripts/` e adicione atalhos em `keybind
 ## 🐛 Solução de Problemas
 
 ### Waybar não aparece
+
 ```bash
 killall waybar && waybar &
 ```
 
 ### Hyprland não inicia
+
 Verifique os logs:
+
 ```bash
 cat ~/.config/hypr/hyprland.log
 ```
 
 ### Temas não aplicam
+
 Regenere o cache do Pywal:
+
 ```bash
 wal -R
 ```
 
 ### Problemas com GPU NVIDIA
+
 Certifique-se de ter instalado:
+
 ```bash
 sudo pacman -S nvidia-dkms nvidia-utils
 ```
