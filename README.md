@@ -5,7 +5,7 @@
 ![Desktop Screenshot](screenshots/desktop.png)
 
 [![ShellCheck](https://github.com/ticogafa/dotfiles/workflows/ShellCheck/badge.svg)](https://github.com/ticogafa/dotfiles/actions/workflows/shellcheck.yml)
-[![Validate Packages](https://github.com/ticogafa/dotfiles/workflows/Validate%20Package%20Lists/badge.svg)](https://github.com/ticogafa/dotfiles/actions/workflows/validate-pkglist. yml)
+[![Validate Packages](https://github.com/ticogafa/dotfiles/workflows/Validate%20Package%20Lists/badge.svg)](https://github.com/ticogafa/dotfiles/actions/workflows/validate-pkglist.yml)
 [![Release](https://img.shields.io/github/v/release/ticogafa/dotfiles)](https://github.com/ticogafa/dotfiles/releases)
 [![License:  MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
