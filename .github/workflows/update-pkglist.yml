@@ -24,12 +24,8 @@ jobs:
           # Remove duplicatas e ordena pkglist.txt
           sort -u pkglist.txt -o pkglist.txt
           
-          # Remove duplicatas e ordena aur_pkglist.txt
-          sort -u aur_pkglist.txt -o aur_pkglist.txt
-          
           # Remove linhas vazias
           sed -i '/^$/d' pkglist.txt
-          sed -i '/^$/d' aur_pkglist.txt
           
           echo "✅ Limpeza concluída"
 
