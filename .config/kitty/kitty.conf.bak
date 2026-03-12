@@ -1,18 +1,46 @@
+# Font Configuration
+font_size 12.0
 font_family CaskaydiaCove Nerd Font Mono
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
 
+# Window Configuration
+window_padding_width 25
+background_opacity 0.9
+background_blur 32
+hide_window_decorations no
+
+# Cursor Configuration
 cursor_trail 1
 cursor_shape_unfocused hollow
 cursor_shape block
 cursor_beam_thickness 1.5
 cursor_color #FFFFFF
-window_padding_width 25
-enable_audio_bell no 
-font_size 12
 
+# Scrollback
+scrollback_lines 3000
 
-# Inclui o tema de cores gerado pelo pywal
-# Este deve ser um dos últimos comandos do arquivo.
-include ~/.cache/wal/colors-kitty.conf
+# Terminal features
+copy_on_select yes
+strip_trailing_spaces smart
+
+# Key bindings for common actions
+map ctrl+shift+n new_window
+map ctrl+t new_tab
+map ctrl+plus change_font_size all +1.0
+map ctrl+minus change_font_size all -1.0
+map ctrl+0 change_font_size all 0
+
+# Tab configuration
+tab_bar_style powerline
+tab_bar_align left
+
+# Shell integration
+shell_integration enabled
+
+# Dank color generation
+include dank-tabs.conf
+include dank-theme.conf
+# include ~/.cache/wal/colors-kitty.conf
+

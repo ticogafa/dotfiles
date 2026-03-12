@@ -31,5 +31,7 @@ wl-paste --type image --watch cliphist store &
 
 # Swaync notification center
 # swaync &
-dms run
+# dms run
 # kitty --title update_sys --hold yay &
+noctalia-qs -c noctalia-shell
+qs -c noctalia-shell
