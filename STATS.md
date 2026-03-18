@@ -1,9 +1,7 @@
 # 📊 Estatísticas do Repositório
 
 - 📝 Scripts Shell: **10**
-- 📦 Pacotes Oficiais: **210**
-- 🔧 Pacotes AUR: **46**
-- 💾 Total de Pacotes: **256**
-- 📄 Linhas de Código: **757**
+- 📦 Pacotes: **1881**
+- 📄 Linhas de Código: **759**
 
-*Atualizado automaticamente em Wed Jan 21 12:31:42 UTC 2026*
+*Atualizado automaticamente em Wed Mar 18 14:37:13 UTC 2026*
