@@ -29,14 +29,11 @@ jobs:
           
           # Conta pacotes
           PKG_COUNT=$(wc -l < pkglist.txt)
-          AUR_COUNT=$(wc -l < aur_pkglist.txt)
-          TOTAL_PKG=$((PKG_COUNT + AUR_COUNT))
           
           # Conta linhas de código
           TOTAL_LINES=$(find .config -name "*.sh" -o -name "*.lua" -o -name "*.fish" | xargs wc -l | tail -1 | awk '{print $1}')
           
           echo "::notice::Scripts: $SCRIPT_COUNT"
-          echo "::notice::Pacotes: $TOTAL_PKG"
           echo "::notice::Linhas de código: $TOTAL_LINES"
           
           # Salva em arquivo
@@ -44,9 +41,7 @@ jobs:
           # 📊 Estatísticas do Repositório
           
           - 📝 Scripts Shell: **$SCRIPT_COUNT**
-          - 📦 Pacotes Oficiais: **$PKG_COUNT**
-          - 🔧 Pacotes AUR: **$AUR_COUNT**
-          - 💾 Total de Pacotes: **$TOTAL_PKG**
+          - 📦 Pacotes: **$PKG_COUNT**
           - 📄 Linhas de Código: **$TOTAL_LINES**
           
           *Atualizado automaticamente em $(date)*
